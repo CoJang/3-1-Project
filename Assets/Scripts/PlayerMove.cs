@@ -43,11 +43,10 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     void FixedUpdate() 
     {
         // 그라운드 체크. 
+        //jump = (Physics2D.OverlapPoint(GroundCheck.position) != null) ? true : false;
         jump = Physics2D.Linecast(transform.position, GroundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
         m_anim.SetBool("Ground", jump); // 점프상태 = 점프 애니메이션 상태
-        //jump = (Physics2D.OverlapPoint(GroundCheck.position) != null) ? true : false;
         transform.position += (moveDir * Time.fixedDeltaTime * MoveSpeed); // 플레이어 포지션 변경 [ 이동 ]
-
     }
     
     void Flip()
@@ -63,7 +62,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         if (jump)
         {
             jump = false;
-            m_Rigidbody.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Force); // 플레이어 포지션 변경 [ 점프 ]
+            m_Rigidbody.AddForce(new Vector2(0f, JumpForce)); // 플레이어 포지션 변경 [ 점프 ]
         }
     }
 
