@@ -4,9 +4,7 @@ using UnityEngine.EventSystems;
 
 public class PlayerMove: MonoBehaviour, IinputListener {
 
-    public Transform GroundCheck;
     public bool facingRight = true;
-
     private bool jump = false;
 
     public float MoveSpeed = 2f;
@@ -14,9 +12,10 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
     public Vector3 moveDir = Vector3.zero; // 캐릭터가 이용할 방향 벡터.
 
+    public Transform GroundCheck;
     public KeyInpuManager keyman;
-
     private Rigidbody2D m_Rigidbody;
+    private Animator m_anim;
 
     // Use this for initialization
     //void Start ()
@@ -29,6 +28,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         GroundCheck = transform.Find("groundCheck");
         keyman.Listerner = this;
         m_Rigidbody = GetComponent<Rigidbody2D>();
+        m_anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -36,6 +36,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     {
         // [ 이동 관련 처리 ]
         moveDir = Vector3.zero; // 매 프레임 마다 초기화를 해주어야, 한 번 눌렀을 때 미끄러지지 않는다.
+        m_anim.SetFloat("MoveSpeed", 0.0f);
     }
 
     // 물리 또는 항상 같음을 유지해야 하는 것 들을 이곳에서 처리한다.
@@ -43,11 +44,10 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     {
         // 그라운드 체크. 
         jump = Physics2D.Linecast(transform.position, GroundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
+        m_anim.SetBool("Ground", jump); // 점프상태 = 점프 애니메이션 상태
         //jump = (Physics2D.OverlapPoint(GroundCheck.position) != null) ? true : false;
         transform.position += (moveDir * Time.fixedDeltaTime * MoveSpeed); // 플레이어 포지션 변경 [ 이동 ]
 
-       
-        //print(jump);
     }
     
     void Flip()
@@ -70,8 +70,9 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     public void Lmove()
     {
         moveDir += Vector3.left;
+        m_anim.SetFloat("MoveSpeed", 0.2f);
 
-        if(facingRight)
+        if (facingRight)
         {
             facingRight = false;
             Flip();
@@ -80,13 +81,13 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
     public void Rmove()
     {
+        moveDir += Vector3.right;
+        m_anim.SetFloat("MoveSpeed", 0.2f);
+
         if (!facingRight)
         {
             facingRight = true;
             Flip();
         }
-
-
-        moveDir += Vector3.right;
     }
 }

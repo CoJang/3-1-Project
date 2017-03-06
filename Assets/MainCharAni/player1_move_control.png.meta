@@ -1,9 +1,17 @@
 fileFormatVersion: 2
 guid: 5c317224c8a6a9644a0de8d6cda9fbc3
-timeCreated: 1488520230
+timeCreated: 1488801635
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: player1_move_control_0
+    21300002: player1_move_control_1
+    21300004: player1_move_control_2
+    21300006: player1_move_control_3
+    21300008: player1_move_control_4
+    21300010: player1_move_control_5
+    21300012: player1_move_control_6
+    21300014: player1_move_control_7
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,7 +38,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -38,7 +46,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -51,7 +59,111 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: player1_move_control_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 168
+        width: 160
+        height: 155
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player1_move_control_1
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 168
+        width: 164
+        height: 160
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player1_move_control_2
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 168
+        width: 163
+        height: 159
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player1_move_control_3
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 168
+        width: 160
+        height: 158
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player1_move_control_4
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 2
+        width: 160
+        height: 154
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player1_move_control_5
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 2
+        width: 163
+        height: 160
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player1_move_control_6
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 2
+        width: 161
+        height: 159
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player1_move_control_7
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 2
+        width: 160
+        height: 155
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
