@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class KeyInpuManager : MonoBehaviour {
 
@@ -9,33 +10,87 @@ public class KeyInpuManager : MonoBehaviour {
 
     public IinputListener Listerner;
 
+    private Touch tempTouchs;
+    private Vector3 touchPos;
+
 	// Use this for initialization
-	void Start ()
-    {
-	
-	}
+	//void Start ()
+    //{
+   // }
 	
 	// Update is called once per frame
+
 	void Update ()
     {
 
-        if (Input.GetMouseButton(0))
+        if(Application.platform == RuntimePlatform.Android) // 안드로이드 이면 아래 구문 실행 
         {
-            if (RectTransformUtility.RectangleContainsScreenPoint(Left_Arrow, Input.mousePosition, Camera.main))
+            if (Input.touchCount > 0)
             {
-                Listerner.Lmove();
-            }
+                for(int i = 0; i < Input.touchCount; i++)
+                {
+                    tempTouchs = Input.GetTouch(i);
 
-            if (RectTransformUtility.RectangleContainsScreenPoint(Right_Arrow, Input.mousePosition, Camera.main))
-            {
-                Listerner.Rmove();
-            }
+                    if(tempTouchs.phase == TouchPhase.Began)
+                    {
+                        if (RectTransformUtility.RectangleContainsScreenPoint(Left_Arrow, tempTouchs.position, Camera.main))
+                        {
+                            Listerner.Lmove();
+                        }
 
-            if(RectTransformUtility.RectangleContainsScreenPoint(Jump_BT, Input.mousePosition, Camera.main))
-            {
-                Listerner.Jump();
+                        if (RectTransformUtility.RectangleContainsScreenPoint(Right_Arrow, tempTouchs.position, Camera.main))
+                        {
+                            Listerner.Rmove();
+                        }
+
+                        if (RectTransformUtility.RectangleContainsScreenPoint(Jump_BT, tempTouchs.position, Camera.main))
+                        {
+                            Listerner.Jump();
+                        }
+
+                        break;
+                    }
+
+                    if(tempTouchs.phase == TouchPhase.Moved || tempTouchs.phase == TouchPhase.Stationary)
+                    {
+                        if (RectTransformUtility.RectangleContainsScreenPoint(Left_Arrow, tempTouchs.position, Camera.main))
+                        {
+                            Listerner.Lmove();
+                        }
+
+                        if (RectTransformUtility.RectangleContainsScreenPoint(Right_Arrow, tempTouchs.position, Camera.main))
+                        {
+                            Listerner.Rmove();
+                        }
+
+                        if (RectTransformUtility.RectangleContainsScreenPoint(Jump_BT, tempTouchs.position, Camera.main))
+                        {
+                            Listerner.Jump();
+                        }
+                    }
+                }
             }
         }
 
+        else // 안드로이드가 아닌 경우 아래구문 실행
+        {
+            if (Input.GetMouseButton(0))
+            {
+                if (RectTransformUtility.RectangleContainsScreenPoint(Left_Arrow, Input.mousePosition, Camera.main))
+                {
+                    Listerner.Lmove();
+                }
+
+                if (RectTransformUtility.RectangleContainsScreenPoint(Right_Arrow, Input.mousePosition, Camera.main))
+                {
+                    Listerner.Rmove();
+                }
+
+                if (RectTransformUtility.RectangleContainsScreenPoint(Jump_BT, Input.mousePosition, Camera.main))
+                {
+                    Listerner.Jump();
+                }
+            }
+        }
     }
 }

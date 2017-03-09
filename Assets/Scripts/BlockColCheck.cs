@@ -6,9 +6,9 @@ public abstract class BlockColCheck : MonoBehaviour {
     protected SpriteRenderer m_SR;
     protected abstract void OnBlockCollition();
 
-    void Awake()
+    protected void Awake()
     {
-        m_SR.GetComponent<SpriteRenderer>();
+        m_SR = GetComponent<SpriteRenderer>();
     }
 
     void OnTriggerEnter2D(Collider2D col)
