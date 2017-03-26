@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 public interface IinputListener
 {
     void Jump();
+    //IEnumerator Jump();
+    //IEnumerator CheckTouchedTime();
+    void CheckTouchedTime();
     void Lmove();
     void Rmove();
 }

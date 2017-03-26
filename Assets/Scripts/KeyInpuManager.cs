@@ -13,6 +13,8 @@ public class KeyInpuManager : MonoBehaviour {
     private Touch tempTouchs;
     private Vector3 touchPos;
 
+    private bool jumpcheck; 
+
 	// Use this for initialization
 	//void Start ()
     //{
@@ -45,7 +47,8 @@ public class KeyInpuManager : MonoBehaviour {
 
                         if (RectTransformUtility.RectangleContainsScreenPoint(Jump_BT, tempTouchs.position, Camera.main))
                         {
-                            Listerner.Jump();
+                            //jumpcheck = true;
+                            //Listerner.CheckTouchedTime();
                         }
 
                         break;
@@ -65,6 +68,16 @@ public class KeyInpuManager : MonoBehaviour {
 
                         if (RectTransformUtility.RectangleContainsScreenPoint(Jump_BT, tempTouchs.position, Camera.main))
                         {
+                            jumpcheck = true;
+                            Listerner.CheckTouchedTime();
+                        }
+                    }
+
+                    if(tempTouchs.phase == TouchPhase.Ended)
+                    {
+                        if(jumpcheck)
+                        {
+                            jumpcheck = false;
                             Listerner.Jump();
                         }
                     }
@@ -88,6 +101,16 @@ public class KeyInpuManager : MonoBehaviour {
 
                 if (RectTransformUtility.RectangleContainsScreenPoint(Jump_BT, Input.mousePosition, Camera.main))
                 {
+                    jumpcheck = true;
+                    Listerner.CheckTouchedTime();
+                }
+            }
+
+            if(Input.GetMouseButtonUp(0))
+            {
+                if(jumpcheck)
+                {
+                    jumpcheck = false;
                     Listerner.Jump();
                 }
             }

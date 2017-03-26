@@ -8,7 +8,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     private bool jump = false;
 
     public float MoveSpeed = 3f;
-    public float JumpForce = 230f;
+    public float JumpForce = 450f;
 
     public Vector3 moveDir = Vector3.zero; // 캐릭터가 이용할 방향 벡터.
 
@@ -67,7 +67,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         transform.localScale = theScale;
     }
 
-
     public void Lmove()
     {
         moveDir += Vector3.left;
@@ -98,13 +97,47 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             m_WalkSound.Play();
     }
 
+    //public IEnumerator Jump()
     public void Jump()
     {
         if (jump)
         {
             jump = false;
-            m_Rigidbody.AddForce(new Vector2(0f, JumpForce)); // 플레이어 포지션 변경 [ 점프 ]
+            //Debug.Log("Touched Time : " + checkTime);
+            //print(TimeMutiply);
+            m_Rigidbody.AddForce(new Vector2(0f, JumpForce * TimeMutiply)); // 플레이어 포지션 변경 [ 점프 ]
+            TimeMutiply = 0.25f;
         }
+    }
+
+    float checkTime;
+    float TimeMutiply;
+    public IEnumerator CheckTime()
+    {
+        checkTime = 0;
+
+        while (jump) // 점프하기 직전까지 계속 췤
+        {
+            checkTime += 0.4f;
+
+            if (checkTime < 0.5f)
+                TimeMutiply = 0.55f;
+            else if (checkTime >= 0.5f && checkTime < 0.9f)
+                TimeMutiply = 0.75f;
+            else if (checkTime >= 0.9f && checkTime <= 1.2f)
+                TimeMutiply = 0.85f;
+            else if (checkTime > 1.4f)
+                TimeMutiply = 1.00f;
+
+            yield return new WaitForSeconds(0.4f);
+        }
+
+
+    }
+
+    public void CheckTouchedTime()
+    {
+        StartCoroutine("CheckTime");
     }
 
 
