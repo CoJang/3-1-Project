@@ -4,17 +4,25 @@ using UnityEngine.EventSystems;
 
 public class PlayerMove: MonoBehaviour, IinputListener {
 
+    [SerializeField] CanvasRenderer[] UI_Canvas;
+
     public bool facingRight = true;
     private bool jump = false;
 
     public float MoveSpeed = 3f;
     public float JumpForce = 450f;
+    public int MaxLife = 3;
+    public int PlayerHealth = 3;
+
+    private bool isDie = false;
+    private bool isUnbeatable = false;
 
     public Vector3 moveDir = Vector3.zero; // 캐릭터가 이용할 방향 벡터.
+    public Collider2D GroundColl;          // 땅바닥 콜라이더
+    public KeyInpuManager keyman;          // 입력값 처리하는 키 메니져
 
-    public Collider2D GroundColl;
-    public KeyInpuManager keyman;
     private Rigidbody2D m_Rigidbody;
+    private SpriteRenderer m_SpriteRenderer;
     private Animator m_anim;
 
     AudioSource m_WalkSound;
@@ -31,17 +39,27 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         m_Rigidbody = GetComponent<Rigidbody2D>();
         m_anim = GetComponent<Animator>();
         m_WalkSound = GetComponent<AudioSource>();
+        m_SpriteRenderer = GetComponent<SpriteRenderer>();
+
+        isDie = false;
+        PlayerHealth = MaxLife;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isDie)
+            return;
+
         moveDir = Vector3.zero; // 매 프레임 마다 초기화를 해주어야, 한 번 눌렀을 때 미끄러지지 않는다.
         m_anim.SetFloat("MoveSpeed", 0.0f);
     }
 
     void LateUpdate()
     {
+        if (isDie)
+            return;
+
         if (moveDir == Vector3.zero)
             m_WalkSound.Pause();
     }
@@ -49,14 +67,43 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     // 물리 또는 항상 같음을 유지해야 하는 것 들을 이곳에서 처리한다.
     void FixedUpdate() 
     {
+        if (isDie)
+            return;
+
         // 그라운드 체크. 
         jump = Physics2D.IsTouchingLayers(GroundColl);  
-        //jump = Physics2D.IsTouchingLayers(GroundColl, 1 << LayerMask.NameToLayer("Ground");
-        //jump = (Physics2D.OverlapPoint(GroundCheck.position) != null) ? true : false;
-        //jump = Physics2D.Linecast(transform.position, GroundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
         m_anim.SetBool("Ground", jump); // 점프상태 = 점프 애니메이션 상태
+
         // [ 이동 관련 처리 ]
         transform.position += (moveDir * Time.fixedDeltaTime * MoveSpeed); // 플레이어 포지션 변경 [ 이동 ]
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Should Not "isUnbeatable" and "Die" // Should be Hit Monster or Obstacle
+        if ((other.gameObject.tag == "Monster" || other.gameObject.tag == "Obstacle") && !isUnbeatable && !isDie)
+        {
+            Vector2 HitDirection = Vector2.zero;
+
+            if (other.gameObject.transform.position.x > transform.position.x)
+                HitDirection = new Vector2(-0f, 5f);
+            else
+                HitDirection = new Vector2(0f, 5f);
+
+            m_Rigidbody.AddForce(HitDirection, ForceMode2D.Impulse);
+            m_anim.SetTrigger("Hit");
+
+            RemoveLife();
+            Debug.Log("PlayerHealth : " + PlayerHealth);
+
+            if (PlayerHealth >= 1)
+            {
+                isUnbeatable = true;
+                StartCoroutine("Unbeatable");
+            }
+            else
+                Die();
+        }
     }
 
     void Flip()
@@ -97,22 +144,19 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             m_WalkSound.Play();
     }
 
-    //public IEnumerator Jump()
     public void Jump()
     {
         if (jump)
         {
             jump = false;
-            //Debug.Log("Touched Time : " + checkTime);
-            //print(TimeMutiply);
             m_Rigidbody.AddForce(new Vector2(0f, JumpForce * TimeMutiply)); // 플레이어 포지션 변경 [ 점프 ]
             TimeMutiply = 0.25f;
         }
     }
 
-    float checkTime;
-    float TimeMutiply;
-    public IEnumerator CheckTime()
+    private float checkTime;
+    private float TimeMutiply;
+    private IEnumerator CheckTime()
     {
         checkTime = 0;
 
@@ -130,9 +174,8 @@ public class PlayerMove: MonoBehaviour, IinputListener {
                 TimeMutiply = 1.00f;
 
             yield return new WaitForSeconds(0.4f);
+
         }
-
-
     }
 
     public void CheckTouchedTime()
@@ -140,6 +183,63 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         StartCoroutine("CheckTime");
     }
 
+    private IEnumerator Unbeatable()
+    {
+        int CountTime = 0;
 
+        while(CountTime < 10)
+        {
+            if(CountTime % 2 == 0)
+                m_SpriteRenderer.color = new Color32(255, 255, 255, 90);
+            else
+                m_SpriteRenderer.color = new Color32(255, 255, 255, 180);
 
+            yield return new WaitForSeconds(0.25f);
+
+            CountTime++;
+        }
+
+        m_SpriteRenderer.color = new Color32(255, 255, 255, 255);
+
+        isUnbeatable = false;
+
+        yield return null;
+    }
+
+    private void Die()
+    {
+        isDie = true;
+        m_anim.SetTrigger("Die");
+
+        BoxCollider2D[] Colls = gameObject.GetComponents<BoxCollider2D>();
+        Colls[0].enabled = false;
+        Colls[1].enabled = false;
+
+        m_Rigidbody.velocity = Vector2.zero; // stop moving
+
+        Vector2 GotoHell = new Vector2(0f, +10f);
+        m_Rigidbody.AddForce(GotoHell, ForceMode2D.Impulse);
+
+    }
+
+    private void RemoveLife()
+    {
+        switch(PlayerHealth)
+        {
+            case 3:
+                PlayerHealth--;
+                UI_Canvas[0].SetAlpha(0);
+                break;
+            case 2:
+                PlayerHealth--;
+                UI_Canvas[1].SetAlpha(0);
+                break;
+            case 1:
+                PlayerHealth--;
+                UI_Canvas[2].SetAlpha(0);
+                break;
+            case 0:
+                break;
+        }
+    }
 }
