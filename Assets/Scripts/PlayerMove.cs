@@ -94,7 +94,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             m_anim.SetTrigger("Hit");
 
             RemoveLife();
-            Debug.Log("PlayerHealth : " + PlayerHealth);
+            //Debug.Log("PlayerHealth : " + PlayerHealth);
 
             if (PlayerHealth >= 1)
             {
@@ -229,6 +229,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             case 3:
                 PlayerHealth--;
                 UI_Canvas[0].SetAlpha(0);
+                
                 break;
             case 2:
                 PlayerHealth--;

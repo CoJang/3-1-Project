@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OnNumBlockHit : BlockColCheck
+public class Tuto_Puzzle_1 : BlockColCheck
 {
-    [SerializeField] Sprite[] sp; // = new Sprite[10];
+    [SerializeField] Sprite[] m_Sprite; // = new Sprite[10];
     [SerializeField] Gate m_Gate;
     [SerializeField] CameraMove m_CameraMove;
 
@@ -12,7 +12,7 @@ public class OnNumBlockHit : BlockColCheck
     protected override void OnBlockCollition()
     {
         i = (++i) % 10;
-        m_SR.sprite = sp[i];
+        m_SR.sprite = m_Sprite[i];
 
         if(i == 8)
         {
