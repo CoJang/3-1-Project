@@ -6,7 +6,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
     [SerializeField] CanvasRenderer[] UI_Canvas;
 
-    public bool facingRight = true;
+    private bool facingRight = true;
     private bool jump = false;
 
     public float MoveSpeed = 3f;
@@ -16,6 +16,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
     private bool isDie = false;
     private bool isUnbeatable = false;
+    private bool isItemHold = false;
 
     public Vector3 moveDir = Vector3.zero; // 캐릭터가 이용할 방향 벡터.
     public Collider2D GroundColl;          // 땅바닥 콜라이더
@@ -94,7 +95,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             m_anim.SetTrigger("Hit");
 
             RemoveLife();
-            //Debug.Log("PlayerHealth : " + PlayerHealth);
 
             if (PlayerHealth >= 1)
             {
@@ -213,7 +213,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
         BoxCollider2D[] Colls = gameObject.GetComponents<BoxCollider2D>();
         Colls[0].enabled = false;
-        Colls[1].enabled = false;
 
         m_Rigidbody.velocity = Vector2.zero; // stop moving
 
@@ -229,7 +228,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             case 3:
                 PlayerHealth--;
                 UI_Canvas[0].SetAlpha(0);
-                
                 break;
             case 2:
                 PlayerHealth--;
@@ -242,5 +240,15 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             case 0:
                 break;
         }
+    }
+
+    public bool GetHoldCondition()
+    {
+        return isItemHold;
+    }
+
+    public void SetHoldCondition(bool TrueOrFalse)
+    {
+        isItemHold = TrueOrFalse;
     }
 }
