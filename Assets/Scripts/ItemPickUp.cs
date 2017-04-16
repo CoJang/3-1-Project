@@ -7,9 +7,11 @@ public class ItemPickUp : BlockColCheck {
     [SerializeField] Transform PlayerPos;
     [SerializeField] Transform SlotPos;
     [SerializeField] PlayerMove Player;
-    [SerializeField] Vector3 OriginPos;
-    //Vector3 OriginPos;
-    bool IsPickUped;
+    [SerializeField] ItemSlot_2 Slot_2;
+    [SerializeField] ItemPickUp[] Blocks; // [0] = left [1] = right
+
+    public Vector3 OriginPos;
+    public bool IsPickUped;
     bool IsEquiped;
 
     // Use this for initialization
@@ -17,14 +19,14 @@ public class ItemPickUp : BlockColCheck {
     {
         IsPickUped = false;
         IsEquiped = false;
-        //OriginPos = transform.position;
+        OriginPos = transform.position;
     }
 	
 	// Update is called once per frame
 	void FixedUpdate ()
     {   
 
-        if (Player.GetHoldCondition() && IsPickUped)
+        if (Player.isItemHold && IsPickUped && Slot_2.GetState() == ItemSlot_2.SLOT_STATE.SLOT_EMPTY)
         {
             transform.position = new Vector3(PlayerPos.position.x, PlayerPos.position.y + 1.25f, PlayerPos.position.z);                     
         }
@@ -37,42 +39,33 @@ public class ItemPickUp : BlockColCheck {
     protected override void OnBlockCollition()
     {
 
-        if (!Player.GetHoldCondition()) // if Player is not Holding a Block
-        {
+        //if (!Player.isItemHold) // if Player is not Holding a Block
+        //{
             IsPickUped = true;
-            Player.SetHoldCondition(true);
-        }
-        if (Player.GetHoldCondition() && !IsEquiped && IsPickUped) // if Player Holding a Block And Does not Equiped
-        {
-                                                                   // Can't Pick Up Item
-        }                                                        
-        //if (!Player.GetHoldCondition() && IsEquiped)               // if Player Used the Block and Want to take another Block
-       // {
-      //      transform.position = OriginPos;                        // Equiped Block Goes Original Position
-      //      IsEquiped = false;
-     //       IsPickUped = false;
-     //       Player.SetHoldCondition(false);
-     //   }
+        //}
 
-        print("Player Hold Condition :" + Player.GetHoldCondition());
-        print("IsPickUped :" + IsPickUped);
-        print("IsEquiped :" + IsEquiped);
+        Slot_2.OnItemCollition();
+
+        //print("Player Hold Condition :" + Player.isItemHold);
+        //print("IsPickUped :" + IsPickUped);
+        //print("Slot_2.IsEquiped :" + Slot_2.GetState());
+        //print("IsEquiped :" + IsEquiped);
 
     }
 
     protected override void OnItemEquiption()
     {
 
-        Player.SetHoldCondition(false);
-        IsPickUped = false;
-        IsEquiped ^= true;
+        //Player.SetHoldCondition(false);
+        //IsPickUped = false;
+        IsEquiped = true;
 
         transform.position = SlotPos.position;
 
         
 
-        print("Player Hold Condition :" + Player.GetHoldCondition());
-        print("IsPickUped :" + IsPickUped);
-        print("IsEquiped :" + IsEquiped);
+        //print("Player Hold Condition :" + Player.GetHoldCondition());
+        //print("IsPickUped :" + IsPickUped);
+        //print("IsEquiped :" + IsEquiped);
     }
 }

@@ -16,7 +16,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
     private bool isDie = false;
     private bool isUnbeatable = false;
-    private bool isItemHold = false;
+    public bool isItemHold = false;
 
     public Vector3 moveDir = Vector3.zero; // 캐릭터가 이용할 방향 벡터.
     public Collider2D GroundColl;          // 땅바닥 콜라이더
@@ -103,6 +103,11 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             }
             else
                 Die();
+        }
+
+        if(other.gameObject.tag == "Item" && !isItemHold)
+        {
+            isItemHold = true;
         }
     }
 
@@ -240,15 +245,5 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             case 0:
                 break;
         }
-    }
-
-    public bool GetHoldCondition()
-    {
-        return isItemHold;
-    }
-
-    public void SetHoldCondition(bool TrueOrFalse)
-    {
-        isItemHold = TrueOrFalse;
     }
 }
