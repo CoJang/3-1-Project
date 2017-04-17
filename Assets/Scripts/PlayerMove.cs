@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 public class PlayerMove: MonoBehaviour, IinputListener {
 
     [SerializeField] CanvasRenderer[] UI_Canvas;
+    [SerializeField] ItemSlot_1 m_Slot1;
+    [SerializeField] ItemSlot_2 m_Slot2;
 
     private bool facingRight = true;
     private bool jump = false;
@@ -87,10 +89,11 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             Vector2 HitDirection = Vector2.zero;
 
             if (other.gameObject.transform.position.x > transform.position.x)
-                HitDirection = new Vector2(-0f, 5f);
+                HitDirection = new Vector2(-1.2f, 5f);
             else
-                HitDirection = new Vector2(0f, 5f);
+                HitDirection = new Vector2(1.2f, 5f);
 
+            m_Rigidbody.velocity = Vector2.zero;
             m_Rigidbody.AddForce(HitDirection, ForceMode2D.Impulse);
             m_anim.SetTrigger("Hit");
 
@@ -99,15 +102,22 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             if (PlayerHealth >= 1)
             {
                 isUnbeatable = true;
-                StartCoroutine("Unbeatable");
+                StartCoroutine(Unbeatable());
             }
             else
                 Die();
         }
 
-        if(other.gameObject.tag == "Item" && !isItemHold)
+        if(other.gameObject.tag == "Item")
         {
-            isItemHold = true;
+            if (m_Slot2.GetState() == ItemSlot_2.SLOT_STATE.SLOT_EMPTY || !m_Slot1.IsEquiped)
+            {
+                isItemHold = true;  
+            }
+            else
+            {
+                isItemHold = false;
+            }
         }
     }
 
@@ -185,7 +195,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
     public void CheckTouchedTime()
     {
-        StartCoroutine("CheckTime");
+        StartCoroutine(CheckTime());
     }
 
     private IEnumerator Unbeatable()

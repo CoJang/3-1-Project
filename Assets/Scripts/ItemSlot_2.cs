@@ -32,11 +32,13 @@ public class ItemSlot_2 : MonoBehaviour {
         {
             m_Foothold[1].MoveUp(0.3f);
             m_Foothold[0].MoveDown(0.3f);
+            Player.isItemHold = false;
         }
         else if (i < 5 && !m_Foothold[0].isUpside && SlotState == SLOT_STATE.LFTE_ITEM_EQUIP)
         {
             m_Foothold[0].MoveUp(0.3f);
             m_Foothold[1].MoveDown(0.3f);
+            Player.isItemHold = false;
         }
     }
 
@@ -65,12 +67,12 @@ public class ItemSlot_2 : MonoBehaviour {
         //print("Slot_2.IsEquiped :" + GetState());
     }
 
+   public SLOT_STATE GetState() { return SlotState; }
+
     public void OnItemCollition()
     {
-        StartCoroutine("DelayedInteraction");
+        StartCoroutine(DelayedInteraction());
     }
-
-   public SLOT_STATE GetState() { return SlotState; }
 
     IEnumerator DelayedInteraction()
     {
