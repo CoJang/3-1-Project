@@ -50,6 +50,7 @@ public class GetItem : BlockColCheck
     protected override void OnItemEquiption()
     {
         transform.position = Slot_1.transform.position;
+        Player.isItemHold = false;
     }
 
     IEnumerator DelayedInteraction()

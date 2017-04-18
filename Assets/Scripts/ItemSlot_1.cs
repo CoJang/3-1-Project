@@ -20,6 +20,7 @@ public class ItemSlot_1 : MonoBehaviour {
             Player.isItemHold = false;
             IsEquiped = true;
             m_Item3.DisableBlock();
+
             Debug.Log("Player.isItemHold " + Player.isItemHold);
             Debug.Log("IsActionable " + m_Item3.IsActionable);
         }

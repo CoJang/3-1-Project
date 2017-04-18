@@ -79,16 +79,16 @@ public class ItemSlot_2 : MonoBehaviour {
         if (Blocks[1].IsPickUped && SlotState == ItemSlot_2.SLOT_STATE.LFTE_ITEM_EQUIP)
         {  
             Player.isItemHold = false;
-            Blocks[0].transform.position = Blocks[0].OriginPos;
             Blocks[0].IsPickUped = false;
+            Blocks[0].transform.position = Blocks[0].OriginPos;
             SlotState = SLOT_STATE.SLOT_EMPTY;
         }
 
         else if (Blocks[0].IsPickUped && SlotState == ItemSlot_2.SLOT_STATE.RIGHT_ITEM_EQUIP)
         {
             Player.isItemHold = false;
-            Blocks[1].transform.position = Blocks[1].OriginPos;
             Blocks[1].IsPickUped = false;
+            Blocks[1].transform.position = Blocks[1].OriginPos;
             SlotState = SLOT_STATE.SLOT_EMPTY;
         }
 
