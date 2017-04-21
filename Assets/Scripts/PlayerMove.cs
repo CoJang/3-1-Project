@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Spine.Unity;
 using UnityEngine.EventSystems;
 
 public class PlayerMove: MonoBehaviour, IinputListener {
@@ -25,24 +26,31 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     public KeyInpuManager keyman;          // 입력값 처리하는 키 메니져
 
     private Rigidbody2D m_Rigidbody;
-    private SpriteRenderer m_SpriteRenderer;
-    private Animator m_anim;
+
+    SkeletonAnimation skeletonAnimation;
+
+    [SpineAnimation(dataField: "skeletonAnimation")]
+    public string walkName = "walking";
+
+    [SpineAnimation(dataField: "skeletonAnimation")]
+    public string [] idleName = { "idle", "idle2", "idle3"};
+
+    [SpineAnimation(dataField: "skeletonAnimation")]
+    public string JumpName = "jump";
+
+    int RandomNum;
 
     AudioSource m_WalkSound;
 
-    // Use this for initialization
-    //void Start ()
-    //{
-    //    GroundCheck = transform.Find("groundCheck");
-    //}
 
     void Awake()
     {
+        RandomNum = 0;
+
         keyman.Listerner = this;
         m_Rigidbody = GetComponent<Rigidbody2D>();
-        m_anim = GetComponent<Animator>();
         m_WalkSound = GetComponent<AudioSource>();
-        m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        skeletonAnimation = GetComponent<SkeletonAnimation>();
 
         isDie = false;
         PlayerHealth = MaxLife;
@@ -55,7 +63,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             return;
 
         moveDir = Vector3.zero; // 매 프레임 마다 초기화를 해주어야, 한 번 눌렀을 때 미끄러지지 않는다.
-        m_anim.SetFloat("MoveSpeed", 0.0f);
     }
 
     void LateUpdate()
@@ -73,12 +80,32 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         if (isDie)
             return;
 
-        // 그라운드 체크. 
-        jump = Physics2D.IsTouchingLayers(GroundColl);  
-        m_anim.SetBool("Ground", jump); // 점프상태 = 점프 애니메이션 상태
-
         // [ 이동 관련 처리 ]
         transform.position += (moveDir * Time.fixedDeltaTime * MoveSpeed); // 플레이어 포지션 변경 [ 이동 ]
+
+        // [ 이동 애니메이션 ]
+        if(skeletonAnimation.loop == false)
+            skeletonAnimation.loop = true;
+        if (moveDir != Vector3.zero && jump)
+            skeletonAnimation.AnimationName = walkName;
+        if(moveDir == Vector3.zero && jump)
+        {
+            skeletonAnimation.AnimationName = idleName[RandomNum];
+            //skeletonAnimation.state.OnEnd();
+        }
+
+        // 그라운드 체크. 
+        jump = Physics2D.IsTouchingLayers(GroundColl);
+
+        if (!jump)
+        {
+            //skeletonAnimation.state.SetAnimation(0, JumpName, false); // 점프상태 = 점프 애니메이션 상태
+            skeletonAnimation.loop = false;
+            skeletonAnimation.AnimationName = JumpName;
+            RandomNum = Random.Range(0, 3);
+        }
+        else
+            skeletonAnimation.loop = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -95,7 +122,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
             m_Rigidbody.velocity = Vector2.zero;
             m_Rigidbody.AddForce(HitDirection, ForceMode2D.Impulse);
-            m_anim.SetTrigger("Hit");
+            //m_anim.SetTrigger("Hit");
 
             RemoveLife();
 
@@ -132,7 +159,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     public void Lmove()
     {
         moveDir += Vector3.left;
-        m_anim.SetFloat("MoveSpeed", 0.2f);
 
         if (facingRight)
         {
@@ -147,7 +173,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     public void Rmove()
     {
         moveDir += Vector3.right;
-        m_anim.SetFloat("MoveSpeed", 0.2f);
 
         if (!facingRight)
         {
@@ -204,17 +229,17 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
         while(CountTime < 10)
         {
-            if(CountTime % 2 == 0)
-                m_SpriteRenderer.color = new Color32(255, 255, 255, 90);
-            else
-                m_SpriteRenderer.color = new Color32(255, 255, 255, 180);
+            //if(CountTime % 2 == 0)
+            //    m_SpriteRenderer.color = new Color32(255, 255, 255, 90);
+            //else
+            //    m_SpriteRenderer.color = new Color32(255, 255, 255, 180);
 
             yield return new WaitForSeconds(0.25f);
 
             CountTime++;
         }
 
-        m_SpriteRenderer.color = new Color32(255, 255, 255, 255);
+        //m_SpriteRenderer.color = new Color32(255, 255, 255, 255);
 
         isUnbeatable = false;
 
@@ -224,7 +249,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     private void Die()
     {
         isDie = true;
-        m_anim.SetTrigger("Die");
+        //m_anim.SetTrigger("Die");
 
         BoxCollider2D[] Colls = gameObject.GetComponents<BoxCollider2D>();
         Colls[0].enabled = false;

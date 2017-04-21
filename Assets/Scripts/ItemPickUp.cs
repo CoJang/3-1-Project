@@ -26,7 +26,7 @@ public class ItemPickUp : BlockColCheck {
 
         if (Player.isItemHold && IsPickUped && Slot_2.GetState() == ItemSlot_2.SLOT_STATE.SLOT_EMPTY)
         {
-            transform.position = new Vector3(PlayerPos.position.x, PlayerPos.position.y + 1.25f, PlayerPos.position.z);
+            transform.position = new Vector3(PlayerPos.position.x, PlayerPos.position.y + 2.0f, PlayerPos.position.z);
         }
         else
         {
@@ -37,7 +37,7 @@ public class ItemPickUp : BlockColCheck {
     protected override void OnBlockCollition()
     {
 
-        if (!Player.isItemHold) // if Player is not Holding a Block
+        if (!IsPickUped) // if Player is not Holding a Block
         {
             IsPickUped = true;
         }
@@ -54,8 +54,6 @@ public class ItemPickUp : BlockColCheck {
     protected override void OnItemEquiption()
     {
         transform.position = SlotPos.position;
-        IsActionable = false;
-        StartCoroutine(DelayedInteraction());
     }
 
     IEnumerator DelayedInteraction()

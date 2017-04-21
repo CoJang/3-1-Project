@@ -28,7 +28,7 @@ public class GetItem : BlockColCheck
 
         if (Player.isItemHold && IsPickUped && !Slot_1.IsEquiped && IsActionable)
         {
-            transform.position = new Vector3(PlayerPos.position.x, PlayerPos.position.y + 1.25f, PlayerPos.position.z);
+            transform.position = new Vector3(PlayerPos.position.x, PlayerPos.position.y + 2.0f, PlayerPos.position.z);
         }
     }
 

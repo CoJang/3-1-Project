@@ -28,16 +28,16 @@ public class ItemSlot_2 : MonoBehaviour {
     {
         i = m_puzzle.GetSpriteNum();
 
-        if (i > 5 && !m_Foothold[1].isUpside && SlotState == SLOT_STATE.RIGHT_ITEM_EQUIP) 
-        {
-            m_Foothold[1].MoveUp(0.3f);
-            m_Foothold[0].MoveDown(0.3f);
-            Player.isItemHold = false;
-        }
-        else if (i < 5 && !m_Foothold[0].isUpside && SlotState == SLOT_STATE.LFTE_ITEM_EQUIP)
+        if (i > 5 && !m_Foothold[0].isUpside && SlotState == SLOT_STATE.RIGHT_ITEM_EQUIP) 
         {
             m_Foothold[0].MoveUp(0.3f);
             m_Foothold[1].MoveDown(0.3f);
+            Player.isItemHold = false;
+        }
+        else if (i < 5 && !m_Foothold[1].isUpside && SlotState == SLOT_STATE.LFTE_ITEM_EQUIP)
+        {
+            m_Foothold[1].MoveUp(0.3f);
+            m_Foothold[0].MoveDown(0.3f);
             Player.isItemHold = false;
         }
     }
