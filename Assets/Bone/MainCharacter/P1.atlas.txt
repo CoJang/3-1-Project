@@ -1,5 +1,5 @@
 
-MainChar_skeleton.png
+P1.png
 size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
@@ -68,7 +68,7 @@ nose&mouth
   offset: 0, 0
   index: -1
 
-MainChar_skeleton2.png
+P12.png
 size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
@@ -116,7 +116,7 @@ tail
   offset: 0, 0
   index: -1
 
-MainChar_skeleton3.png
+P13.png
 size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
