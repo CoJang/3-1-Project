@@ -146,6 +146,17 @@ public class PlayerMove: MonoBehaviour, IinputListener {
                 isItemHold = false;
             }
         }
+
+        if(other.gameObject.tag == "MonsterHitBox")
+        {
+            MonsterMove monster = other.gameObject.GetComponentInParent<MonsterMove>();
+            other.enabled = false;
+            monster.Die();
+
+            Vector2 KillPump = new Vector2(0, 5f);
+            m_Rigidbody.velocity = Vector2.zero;
+            m_Rigidbody.AddForce(KillPump, ForceMode2D.Impulse);
+        }
     }
 
     void Flip()

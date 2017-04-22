@@ -35,7 +35,7 @@ public class GetItem : BlockColCheck
     protected override void OnBlockCollition()
     {
 
-        if (!Player.isItemHold && !Slot_1.IsEquiped && IsActionable) // if Player is not Holding a Block
+        if (!IsPickUped && !Slot_1.IsEquiped && IsActionable) // if Player is not Holding a Block
         {
             IsPickUped = true;
         }
