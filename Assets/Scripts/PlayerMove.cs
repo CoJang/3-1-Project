@@ -157,6 +157,14 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             m_Rigidbody.velocity = Vector2.zero;
             m_Rigidbody.AddForce(KillPump, ForceMode2D.Impulse);
         }
+
+        if(other.gameObject.tag == "ClearPoint")
+        {
+            StageClear st = keyman.gameObject.GetComponentInChildren<StageClear>();
+            st.FinishStage();
+
+            keyman.enabled = false;
+        }
     }
 
     void Flip()

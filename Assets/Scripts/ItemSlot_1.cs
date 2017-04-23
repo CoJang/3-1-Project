@@ -21,8 +21,8 @@ public class ItemSlot_1 : MonoBehaviour {
             IsEquiped = true;
             m_Item3.DisableBlock();
 
-            Debug.Log("Player.isItemHold " + Player.isItemHold);
-            Debug.Log("IsActionable " + m_Item3.IsActionable);
+            //Debug.Log("Player.isItemHold " + Player.isItemHold);
+            //Debug.Log("IsActionable " + m_Item3.IsActionable);
         }
     }
 

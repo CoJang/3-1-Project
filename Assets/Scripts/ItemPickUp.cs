@@ -44,10 +44,9 @@ public class ItemPickUp : BlockColCheck {
 
         Slot_2.OnItemCollition();
 
-        print("Player Hold Condition : " + Player.isItemHold);
-        print("IsPickUped :" + IsPickUped);
-        print("Slot_2.IsEquiped :" + Slot_2.GetState());
-        //print("IsEquiped :" + IsEquiped);
+       // print("Player Hold Condition : " + Player.isItemHold);
+       // print("IsPickUped :" + IsPickUped);
+       // print("Slot_2.IsEquiped :" + Slot_2.GetState());
 
     }
 
