@@ -47,9 +47,9 @@ public class ItemSlot_2 : MonoBehaviour {
         if (col.gameObject.name == "Item_right")
         {
             Player.isItemHold = false;
-            CheckIsCorrect();
             SlotState = SLOT_STATE.RIGHT_ITEM_EQUIP;
             col.gameObject.transform.position = transform.position;
+            CheckIsCorrect();
 
             //Debug.Log("[< Block] is Equiped");
         }
@@ -57,9 +57,9 @@ public class ItemSlot_2 : MonoBehaviour {
         else if (col.gameObject.name == "Item_left")
         {
             Player.isItemHold = false;
-            CheckIsCorrect();
             SlotState = SLOT_STATE.LFTE_ITEM_EQUIP;
             col.gameObject.transform.position = transform.position;
+            CheckIsCorrect();
             //Debug.Log("[> Block] is Equiped");
         }
 
