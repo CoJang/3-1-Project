@@ -26,6 +26,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     public KeyInpuManager keyman;          // 입력값 처리하는 키 메니져
 
     private Rigidbody2D m_Rigidbody;
+    Inventory myInven;
 
     SkeletonAnimation skeletonAnimation;
 
@@ -51,9 +52,11 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         m_Rigidbody = GetComponent<Rigidbody2D>();
         m_WalkSound = GetComponent<AudioSource>();
         skeletonAnimation = GetComponent<SkeletonAnimation>();
+        myInven = GetComponent<Inventory>();
 
         isDie = false;
         PlayerHealth = MaxLife;
+
     }
 
     // Update is called once per frame
@@ -139,7 +142,9 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         {
             if (m_Slot2.GetState() == ItemSlot_2.SLOT_STATE.SLOT_EMPTY || !m_Slot1.IsEquiped)
             {
-                isItemHold = true;  
+                isItemHold = true;
+                myInven.SaveItem("BLOCK 3", 1);
+                myInven.ShowInventory();
             }
             else
             {
@@ -215,6 +220,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
     private float checkTime;
     private float TimeMutiply;
+
     private IEnumerator CheckTime()
     {
         checkTime = 0;
