@@ -7,6 +7,7 @@ public class KeyInpuManager : MonoBehaviour {
     public RectTransform Left_Arrow;
     public RectTransform Right_Arrow;
     public RectTransform Jump_BT;
+    public RectTransform Inventory_BT;
 
     public IinputListener Listerner;
 
@@ -25,7 +26,7 @@ public class KeyInpuManager : MonoBehaviour {
 	void Update ()
     {
 
-        if(Application.platform == RuntimePlatform.Android) // 안드로이드 이면 아래 구문 실행 
+#if UNITY_ANDROID
         {
             if (Input.touchCount > 0)
             {
@@ -49,6 +50,10 @@ public class KeyInpuManager : MonoBehaviour {
                         {
                             //jumpcheck = true;
                             //Listerner.CheckTouchedTime();
+                        }
+                        if (RectTransformUtility.RectangleContainsScreenPoint(Inventory_BT, tempTouchs.position, Camera.main))
+                        {
+                            Listerner.ShowInven();
                         }
 
                         break;
@@ -85,7 +90,8 @@ public class KeyInpuManager : MonoBehaviour {
             }
         }
 
-        else // 안드로이드가 아닌 경우 아래구문 실행
+
+#else // 안드로이드가 아닌 경우 아래구문 실행
         {
             if (Input.GetMouseButton(0))
             {
@@ -104,6 +110,8 @@ public class KeyInpuManager : MonoBehaviour {
                     jumpcheck = true;
                     Listerner.CheckTouchedTime();
                 }
+
+
             }
 
             if(Input.GetMouseButtonUp(0))
@@ -113,7 +121,44 @@ public class KeyInpuManager : MonoBehaviour {
                     jumpcheck = false;
                     Listerner.Jump();
                 }
+
+                if (RectTransformUtility.RectangleContainsScreenPoint(Inventory_BT, Input.mousePosition, Camera.main))
+                {
+                    Listerner.ShowInven();
+                }
+            }
+
+            // Keyboard Use
+            if(Input.GetButtonDown("Jump"))
+            {
+                jumpcheck = true;
+                Listerner.CheckTouchedTime();
+            }
+
+            if(Input.GetKeyUp(KeyCode.Space))
+            {
+                if (jumpcheck)
+                {
+                    jumpcheck = false;
+                    Listerner.Jump();
+                }
+            }
+
+            if(Input.GetKeyDown(KeyCode.Z))
+            {
+                Listerner.ShowInven();
+            }
+
+            if (Input.GetAxisRaw("Horizontal") > 0)
+            {
+                Listerner.Rmove();
+            }
+
+            if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+                Listerner.Lmove();
             }
         }
     }
 }
+#endif

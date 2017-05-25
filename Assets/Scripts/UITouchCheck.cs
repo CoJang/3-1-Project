@@ -10,6 +10,7 @@ public interface IinputListener
     void CheckTouchedTime();
     void Lmove();
     void Rmove();
+    void ShowInven();
 }
 
 public class UITouchCheck : MonoBehaviour
@@ -24,10 +25,6 @@ public class UITouchCheck : MonoBehaviour
 	void Update ()
     { 
 
-    }
-
-    public void ItemBox()
-    {
     }
 
 }

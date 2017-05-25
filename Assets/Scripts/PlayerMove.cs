@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 public class PlayerMove: MonoBehaviour, IinputListener {
 
     [SerializeField] CanvasRenderer[] UI_Canvas;
-    [SerializeField] ItemSlot_1 m_Slot1;
-    [SerializeField] ItemSlot_2 m_Slot2;
 
     private bool facingRight = true;
     private bool jump = false;
@@ -57,6 +55,9 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         isDie = false;
         PlayerHealth = MaxLife;
 
+        // [ Debug Only ] ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        myInven.DeleteBlocks();
+        // [ Debug Only ] ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     // Update is called once per frame
@@ -114,7 +115,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Should Not "isUnbeatable" and "Die" // Should be Hit Monster or Obstacle
-        if ((other.gameObject.tag == "Monster" || other.gameObject.tag == "Obstacle") && !isUnbeatable && !isDie)
+        if ((other.gameObject.tag == "Monster" || other.gameObject.tag == "Obstacle") && !isUnbeatable && !isDie && !other.isTrigger)
         {
             Vector2 HitDirection = Vector2.zero;
 
@@ -140,16 +141,15 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
         if(other.gameObject.tag == "Item")
         {
-            if (m_Slot2.GetState() == ItemSlot_2.SLOT_STATE.SLOT_EMPTY || !m_Slot1.IsEquiped)
-            {
-                isItemHold = true;
-                myInven.SaveItem("BLOCK 3", 1);
-                myInven.ShowInventory();
-            }
-            else
-            {
-                isItemHold = false;
-            }
+            ItemScript item = other.gameObject.GetComponentInParent<ItemScript>();
+
+            if (!item)
+                item = other.gameObject.GetComponent<ItemScript>();
+
+            if (!item)
+                Debug.LogError("There's No [ItemScript]!");
+
+            myInven.SaveItem(item.GetBlockKey(), 1);
         }
 
         if(other.gameObject.tag == "MonsterHitBox")
@@ -169,6 +169,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             st.FinishStage();
 
             keyman.enabled = false;
+            myInven.DeleteBlocks();
         }
     }
 
@@ -216,6 +217,11 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             m_Rigidbody.AddForce(new Vector2(0f, JumpForce * TimeMutiply)); // 플레이어 포지션 변경 [ 점프 ]
             TimeMutiply = 0.25f;
         }
+    }
+
+    public void ShowInven()
+    {
+        myInven.ShowInventory();
     }
 
     private float checkTime;
@@ -284,6 +290,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         Vector2 GotoHell = new Vector2(0f, +10f);
         m_Rigidbody.AddForce(GotoHell, ForceMode2D.Impulse);
 
+        myInven.DeleteBlocks();
     }
 
     private void RemoveLife()
@@ -306,4 +313,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
                 break;
         }
     }
+
+
 }

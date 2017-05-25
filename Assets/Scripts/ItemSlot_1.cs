@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemSlot_1 : MonoBehaviour {
 
     [SerializeField] PlayerMove Player;
-    [SerializeField] GetItem m_Item3;
+    //[SerializeField] GetItem m_Item3;
     public bool IsEquiped;
 
     int i;
@@ -19,7 +19,7 @@ public class ItemSlot_1 : MonoBehaviour {
             //Debug.Log("[< Block] is Equiped");
             Player.isItemHold = false;
             IsEquiped = true;
-            m_Item3.DisableBlock();
+           // m_Item3.DisableBlock();
 
             //Debug.Log("Player.isItemHold " + Player.isItemHold);
             //Debug.Log("IsActionable " + m_Item3.IsActionable);

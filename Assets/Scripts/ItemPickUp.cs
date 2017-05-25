@@ -24,25 +24,25 @@ public class ItemPickUp : BlockColCheck {
 	void FixedUpdate ()
     {   
 
-        if (Player.isItemHold && IsPickUped && Slot_2.GetState() == ItemSlot_2.SLOT_STATE.SLOT_EMPTY)
-        {
-            transform.position = new Vector3(PlayerPos.position.x, PlayerPos.position.y + 2.0f, PlayerPos.position.z);
-        }
-        else
-        {
-            return;
-        }
+        //if (Player.isItemHold && IsPickUped && Slot_2.GetState() == ItemSlot_2.SLOT_STATE.SLOT_EMPTY)
+        //{
+        //    transform.position = new Vector3(PlayerPos.position.x, PlayerPos.position.y + 2.0f, PlayerPos.position.z);
+        //}
+        //else
+        //{
+        //    return;
+        //}
 	}
 
     protected override void OnBlockCollition()
     {
 
-        if (!IsPickUped) // if Player is not Holding a Block
-        {
-            IsPickUped = true;
-        }
+        //if (!IsPickUped) // if Player is not Holding a Block
+        //{
+        //    IsPickUped = true;
+        //}
 
-        Slot_2.OnItemCollition();
+        //Slot_2.OnItemCollition();
 
        // print("Player Hold Condition : " + Player.isItemHold);
        // print("IsPickUped :" + IsPickUped);
@@ -52,12 +52,12 @@ public class ItemPickUp : BlockColCheck {
 
     protected override void OnItemEquiption()
     {
-        transform.position = SlotPos.position;
+        //transform.position = SlotPos.position;
     }
 
-    IEnumerator DelayedInteraction()
-    {
-        yield return new WaitForSeconds(1.0f);
-        IsActionable = true;
-    }
+    //IEnumerator DelayedInteraction()
+    //{
+    //    yield return new WaitForSeconds(1.0f);
+    //    IsActionable = true;
+    //}
 }
