@@ -7,6 +7,7 @@ public class ItemScript : MonoBehaviour
     GameObject player;
     GameObject PlayerItemSlot;
     PlayerMove playerScript;
+    //[SerializeField] GameObject Get_effect;
 
     public string BlockKey;
 

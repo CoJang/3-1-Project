@@ -6,6 +6,9 @@ using UnityEngine.EventSystems;
 public class PlayerMove: MonoBehaviour, IinputListener {
 
     [SerializeField] CanvasRenderer[] UI_Canvas;
+    [SerializeField] GameObject Jump_effect;
+    [SerializeField] GameObject Hit_effect;
+    [SerializeField] GameObject Get_effect;
 
     private bool facingRight = true;
     private bool jump = false;
@@ -107,6 +110,8 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             skeletonAnimation.loop = false;
             skeletonAnimation.AnimationName = JumpName;
             RandomNum = Random.Range(0, 3);
+
+            //Instantiate(Jump_effect, transform.position, Quaternion.identity);
         }
         else
             skeletonAnimation.loop = true;
@@ -149,6 +154,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             if (!item)
                 Debug.LogError("There's No [ItemScript]!");
 
+            Instantiate(Get_effect, new Vector3(transform.position.x, transform.position.y + 1.2f, transform.position.z), Quaternion.identity);
             myInven.SaveItem(item.GetBlockKey(), 1);
         }
 
@@ -213,6 +219,8 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     {
         if (jump)
         {
+            
+            Instantiate(Jump_effect, new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z), Quaternion.identity);
             jump = false;
             m_Rigidbody.AddForce(new Vector2(0f, JumpForce * TimeMutiply)); // 플레이어 포지션 변경 [ 점프 ]
             TimeMutiply = 0.25f;
@@ -299,14 +307,17 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         {
             case 3:
                 PlayerHealth--;
+                Instantiate(Hit_effect, new Vector3(transform.position.x + 0.3f, transform.position.y + 0.4f, transform.position.z), Quaternion.identity);
                 UI_Canvas[0].SetAlpha(0);
                 break;
             case 2:
                 PlayerHealth--;
+                Instantiate(Hit_effect, new Vector3(transform.position.x + 0.2f, transform.position.y + 0.9f, transform.position.z), Quaternion.identity);
                 UI_Canvas[1].SetAlpha(0);
                 break;
             case 1:
                 PlayerHealth--;
+                Instantiate(Hit_effect, new Vector3(transform.position.x + 0.3f, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
                 UI_Canvas[2].SetAlpha(0);
                 break;
             case 0:
