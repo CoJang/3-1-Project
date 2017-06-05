@@ -67,32 +67,7 @@ public class MonsterMove : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D Col)
     {
-        if(Col.gameObject.tag == "BounceWall")
-        {
-            //print("coolll");
-            switch(movementFlag)
-            {
-                case 0: // idle
-                    break;
-
-                case 1: // Left
-                    movementFlag = 2;
-                    MoveRight();
-                    break;
-
-                case 2: // Right
-                    movementFlag = 1;
-                    MoveLeft();
-                    break;
-
-                case 3: // Tracing
-                    if (transform.localScale.x > 0)
-                        movementFlag = 2;
-                    else
-                        movementFlag = 1;
-                    break;
-            }
-        }
+        
     }
 
     void OnTriggerStay2D(Collider2D Col)
@@ -131,15 +106,14 @@ public class MonsterMove : MonoBehaviour
         transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y * 0.6f, 1); // Y axis flip
 
         BoxCollider2D[] Coll = gameObject.GetComponents<BoxCollider2D>();
-        if(Coll[0])
-            Coll[0].enabled = false;
-        if (Coll[1])
-            Coll[1].enabled = false;
+        Coll[0].enabled = false;
+        Coll[1].enabled = false;
 
         BoxCollider2D ChildColl = gameObject.GetComponentInChildren<BoxCollider2D>();
-        if(ChildColl)
-            ChildColl.enabled = false;
+        ChildColl.enabled = false;
 
+        //m_Rigidbody.freezeRotation = false;
+        m_Rigidbody.constraints = RigidbodyConstraints2D.None;
         m_Rigidbody.AddForce(new Vector2(0, 5.5f), ForceMode2D.Impulse);
 
         Destroy(Father, 4f);
@@ -148,13 +122,16 @@ public class MonsterMove : MonoBehaviour
     void MoveLeft()
     {
         moveDir = Vector3.left;
-        transform.localScale = new Vector3(0.15f, transform.localScale.y, 1); // flip
+        if (transform.localScale.x < 0)
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, 1); // flip
+
     }
 
     void MoveRight()
     {
         moveDir = Vector3.right;
-        transform.localScale = new Vector3(-0.15f, transform.localScale.y, 1); // flip
+        if (transform.localScale.x > 0)
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, 1); // flip
     }
 
     IEnumerator ChangeMovement()
@@ -165,8 +142,8 @@ public class MonsterMove : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
 
         if (transform.localScale.x > 0)
-            movementFlag = 1;
-        else
             movementFlag = 2;
+        else
+            movementFlag = 1;
     }
 }

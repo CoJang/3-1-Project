@@ -1,0 +1,90 @@
+
+S_e1.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm_L
+  rotate: false
+  xy: 230, 99
+  size: 61, 51
+  orig: 61, 51
+  offset: 0, 0
+  index: -1
+arm_R
+  rotate: false
+  xy: 336, 194
+  size: 49, 60
+  orig: 49, 60
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 2, 45
+  size: 226, 209
+  orig: 226, 209
+  offset: 0, 0
+  index: -1
+eye_L
+  rotate: false
+  xy: 74, 2
+  size: 18, 16
+  orig: 18, 16
+  offset: 0, 0
+  index: -1
+eye_R
+  rotate: false
+  xy: 387, 213
+  size: 18, 20
+  orig: 18, 20
+  offset: 0, 0
+  index: -1
+flower
+  rotate: false
+  xy: 230, 152
+  size: 104, 102
+  orig: 104, 102
+  offset: 0, 0
+  index: -1
+leaf_L
+  rotate: false
+  xy: 387, 235
+  size: 34, 19
+  orig: 34, 19
+  offset: 0, 0
+  index: -1
+leaf_R
+  rotate: false
+  xy: 74, 20
+  size: 18, 23
+  orig: 18, 23
+  offset: 0, 0
+  index: -1
+leg_L
+  rotate: false
+  xy: 293, 106
+  size: 35, 44
+  orig: 35, 44
+  offset: 0, 0
+  index: -1
+leg_R
+  rotate: false
+  xy: 230, 59
+  size: 42, 38
+  orig: 42, 38
+  offset: 0, 0
+  index: -1
+mouse
+  rotate: false
+  xy: 336, 161
+  size: 47, 31
+  orig: 47, 31
+  offset: 0, 0
+  index: -1
+stem
+  rotate: true
+  xy: 2, 9
+  size: 34, 70
+  orig: 34, 70
+  offset: 0, 0
+  index: -1

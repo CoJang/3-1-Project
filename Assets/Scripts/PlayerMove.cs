@@ -120,7 +120,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Should Not "isUnbeatable" and "Die" // Should be Hit Monster or Obstacle
-        if ((other.gameObject.tag == "Monster" || other.gameObject.tag == "Obstacle") && !isUnbeatable && !isDie && !other.isTrigger)
+        if ((other.gameObject.tag == "Monster" || other.gameObject.tag == "Obstacle") && !isUnbeatable && !isDie)
         {
             Vector2 HitDirection = Vector2.zero;
 
@@ -219,7 +219,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     {
         if (jump)
         {
-            
             Instantiate(Jump_effect, new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z), Quaternion.identity);
             jump = false;
             m_Rigidbody.AddForce(new Vector2(0f, JumpForce * TimeMutiply)); // 플레이어 포지션 변경 [ 점프 ]
