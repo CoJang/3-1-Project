@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Inventory : MonoBehaviour
 {
     [SerializeField] Sprite [] UI_Blocks;
@@ -106,6 +107,12 @@ public class Inventory : MonoBehaviour
         PlayerPrefs.DeleteKey("BLOCK Z");
         PlayerPrefs.DeleteKey("BLOCK ROOT");
 
+        PlayerPrefs.DeleteKey("SLOT 1");
+        PlayerPrefs.DeleteKey("SLOT 2");
+        PlayerPrefs.DeleteKey("SLOT 3");
+        PlayerPrefs.DeleteKey("SLOT 4");
+        PlayerPrefs.DeleteKey("SLOT 5");
+
         return true;
     }
 
@@ -113,34 +120,34 @@ public class Inventory : MonoBehaviour
     {
         int count = 0;
 
-        if (PlayerPrefs.GetInt("BLOCK 0") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[0]; }
-        if (PlayerPrefs.GetInt("BLOCK 1") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[1]; }
-        if (PlayerPrefs.GetInt("BLOCK 2") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[2]; }
-        if (PlayerPrefs.GetInt("BLOCK 3") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[3]; }
-        if (PlayerPrefs.GetInt("BLOCK 4") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[4]; }
-        if (PlayerPrefs.GetInt("BLOCK 5") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[5]; }
-        if (PlayerPrefs.GetInt("BLOCK 6") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[6]; }
-        if (PlayerPrefs.GetInt("BLOCK 7") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[7]; }
-        if (PlayerPrefs.GetInt("BLOCK 8") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[8]; }
-        if (PlayerPrefs.GetInt("BLOCK 9") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[9]; }
+        if (PlayerPrefs.GetInt("BLOCK 0") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[0]; PlayerPrefs.SetInt("SLOT " + count, 0); }
+        if (PlayerPrefs.GetInt("BLOCK 1") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[1]; PlayerPrefs.SetInt("SLOT " + count, 1); }
+        if (PlayerPrefs.GetInt("BLOCK 2") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[2]; PlayerPrefs.SetInt("SLOT " + count, 2); }
+        if (PlayerPrefs.GetInt("BLOCK 3") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[3]; PlayerPrefs.SetInt("SLOT " + count, 3); }
+        if (PlayerPrefs.GetInt("BLOCK 4") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[4]; PlayerPrefs.SetInt("SLOT " + count, 4); }
+        if (PlayerPrefs.GetInt("BLOCK 5") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[5]; PlayerPrefs.SetInt("SLOT " + count, 5); }
+        if (PlayerPrefs.GetInt("BLOCK 6") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[6]; PlayerPrefs.SetInt("SLOT " + count, 6); }
+        if (PlayerPrefs.GetInt("BLOCK 7") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[7]; PlayerPrefs.SetInt("SLOT " + count, 7); }
+        if (PlayerPrefs.GetInt("BLOCK 8") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[8]; PlayerPrefs.SetInt("SLOT " + count, 8); }
+        if (PlayerPrefs.GetInt("BLOCK 9") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[9]; PlayerPrefs.SetInt("SLOT " + count, 9); }
 
-        if (PlayerPrefs.GetInt("BLOCK LEFT") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[10]; }
-        if (PlayerPrefs.GetInt("BLOCK RIGHT") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[11]; }
-        if (PlayerPrefs.GetInt("BLOCK EQUAL") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[12]; }
-        if (PlayerPrefs.GetInt("BLOCK PLUS") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[13]; }
-        if (PlayerPrefs.GetInt("BLOCK MINUS") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[14]; }
-        if (PlayerPrefs.GetInt("BLOCK DIVIDE") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[15]; }
-        if (PlayerPrefs.GetInt("BLOCK MULTY") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[16]; }
+        if (PlayerPrefs.GetInt("BLOCK LEFT") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[10]; PlayerPrefs.SetInt("SLOT " + count, 10); }
+        if (PlayerPrefs.GetInt("BLOCK RIGHT") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[11]; PlayerPrefs.SetInt("SLOT " + count, 11); }
+        if (PlayerPrefs.GetInt("BLOCK EQUAL") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[12]; PlayerPrefs.SetInt("SLOT " + count, 12); }
+        if (PlayerPrefs.GetInt("BLOCK PLUS") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[13]; PlayerPrefs.SetInt("SLOT " + count, 13); }
+        if (PlayerPrefs.GetInt("BLOCK MINUS") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[14]; PlayerPrefs.SetInt("SLOT " + count, 14); }
+        if (PlayerPrefs.GetInt("BLOCK DIVIDE") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[15]; PlayerPrefs.SetInt("SLOT " + count, 15); }
+        if (PlayerPrefs.GetInt("BLOCK MULTY") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[16]; PlayerPrefs.SetInt("SLOT " + count, 16); }
 
-        if (PlayerPrefs.GetInt("BLOCK FX") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[17]; }
-        if (PlayerPrefs.GetInt("BLOCK GX") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[18]; }
-        if (PlayerPrefs.GetInt("BLOCK HX") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[19]; }
+        if (PlayerPrefs.GetInt("BLOCK FX") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[17]; PlayerPrefs.SetInt("SLOT " + count, 17); }
+        if (PlayerPrefs.GetInt("BLOCK GX") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[18]; PlayerPrefs.SetInt("SLOT " + count, 18); }
+        if (PlayerPrefs.GetInt("BLOCK HX") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[19]; PlayerPrefs.SetInt("SLOT " + count, 19); }
 
-        if (PlayerPrefs.GetInt("BLOCK X") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[20]; }
-        if (PlayerPrefs.GetInt("BLOCK Y") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[21]; }
-        if (PlayerPrefs.GetInt("BLOCK Z") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[22]; }
-        if (PlayerPrefs.GetInt("BLOCK ROOT") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[23]; }
-
+        if (PlayerPrefs.GetInt("BLOCK X") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[20]; PlayerPrefs.SetInt("SLOT " + count, 20); }
+        if (PlayerPrefs.GetInt("BLOCK Y") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[21]; PlayerPrefs.SetInt("SLOT " + count, 21); }
+        if (PlayerPrefs.GetInt("BLOCK Z") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[22]; PlayerPrefs.SetInt("SLOT " + count, 22); }
+        if (PlayerPrefs.GetInt("BLOCK ROOT") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[23]; PlayerPrefs.SetInt("SLOT " + count, 23); }
+       
         //ShotTheBlock();
     }
 
@@ -149,6 +156,7 @@ public class Inventory : MonoBehaviour
         int CoinNum = PlayerPrefs.GetInt("COIN");
         CoinNum++;
         PlayerPrefs.SetInt("COIN", CoinNum);
+        PlayerPrefs.Save();
     }
 
     IEnumerator UpdateMove(Image Target, Vector3 dstPosition, float moveTime, float delayTime, Action callback)
@@ -182,6 +190,22 @@ public class Inventory : MonoBehaviour
     public void BlockOnClick()
     {
         print("Clicked");
+    }
+
+    public Sprite CheckSlot(int slotNum)
+    {
+        Sprite SpriteNum;
+
+        if (UI_Slots[slotNum].enabled)
+        {
+            SpriteNum = UI_Blocks[PlayerPrefs.GetInt("SLOT " + slotNum)];
+        }
+        else
+        {
+            SpriteNum = UI_Blocks[0];
+        }
+
+        return SpriteNum;
     }
 }
 

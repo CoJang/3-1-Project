@@ -8,6 +8,7 @@ public class KeyInpuManager : MonoBehaviour {
     public RectTransform Right_Arrow;
     public RectTransform Jump_BT;
     public RectTransform Inventory_BT;
+    public RectTransform[] ItemSlots;
 
     public IinputListener Listerner;
 
@@ -111,7 +112,26 @@ public class KeyInpuManager : MonoBehaviour {
                     Listerner.CheckTouchedTime();
                 }
 
-
+                if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[0], Input.mousePosition, Camera.main))
+                {
+                    Listerner.Slot1Touched();
+                }
+                if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[1], Input.mousePosition, Camera.main))
+                {
+                    Listerner.Slot2Touched();
+                }
+                if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[2], Input.mousePosition, Camera.main))
+                {
+                    Listerner.Slot3Touched();
+                }
+                if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[3], Input.mousePosition, Camera.main))
+                {
+                    Listerner.Slot4Touched();
+                }
+                if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[4], Input.mousePosition, Camera.main))
+                {
+                    Listerner.Slot5Touched();
+                }
             }
 
             if(Input.GetMouseButtonUp(0))

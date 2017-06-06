@@ -11,20 +11,15 @@ public interface IinputListener
     void Lmove();
     void Rmove();
     void ShowInven();
+
+    void Slot1Touched();
+    void Slot2Touched();
+    void Slot3Touched();
+    void Slot4Touched();
+    void Slot5Touched();
 }
 
 public class UITouchCheck : MonoBehaviour
 {
-    // Use this for initialization
-    void Start ()
-    {
-	
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    { 
-
-    }
 
 }

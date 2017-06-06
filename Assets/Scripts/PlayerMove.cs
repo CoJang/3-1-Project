@@ -10,6 +10,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     [SerializeField] GameObject Jump_effect;
     [SerializeField] GameObject Hit_effect;
     [SerializeField] GameObject Get_effect;
+    [SerializeField] GameObject BlockSlot;
 
     private bool facingRight = true;
     private bool jump = false;
@@ -234,6 +235,27 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     {
         myInven.ShowInventory();
         //myInven.ShotTheBlock()
+    }
+
+    public void Slot1Touched()
+    {
+        BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(0);
+    }
+    public void Slot2Touched()
+    {
+        BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(1);
+    }
+    public void Slot3Touched()
+    {
+        BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(2);
+    }
+    public void Slot4Touched()
+    {
+        BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(3);
+    }
+    public void Slot5Touched()
+    {
+        BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(4);
     }
 
     private float checkTime;
