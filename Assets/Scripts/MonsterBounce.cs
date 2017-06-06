@@ -39,7 +39,7 @@ public class MonsterBounce : MonoBehaviour
                     break;
 
                 case 3: // Tracing
-                    if (transform.localScale.x > 0)
+                    if (MonsterBody.transform.localScale.x > 0)
                         MonsterScript.movementFlag = 2;
                     else
                         MonsterScript.movementFlag = 1;

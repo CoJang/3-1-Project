@@ -2,6 +2,7 @@
 using System.Collections;
 using Spine.Unity;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PlayerMove: MonoBehaviour, IinputListener {
 
@@ -110,8 +111,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             skeletonAnimation.loop = false;
             skeletonAnimation.AnimationName = JumpName;
             RandomNum = Random.Range(0, 3);
-
-            //Instantiate(Jump_effect, transform.position, Quaternion.identity);
         }
         else
             skeletonAnimation.loop = true;
@@ -156,6 +155,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
             Instantiate(Get_effect, new Vector3(transform.position.x, transform.position.y + 1.2f, transform.position.z), Quaternion.identity);
             myInven.SaveItem(item.GetBlockKey(), 1);
+            Destroy(other.gameObject, 0.5f);
         }
 
         if(other.gameObject.tag == "MonsterHitBox")
@@ -176,6 +176,10 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
             keyman.enabled = false;
             myInven.DeleteBlocks();
+        }
+        if(other.gameObject.tag == "Coin")
+        {
+            myInven.AddCoin();
         }
     }
 
@@ -229,6 +233,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     public void ShowInven()
     {
         myInven.ShowInventory();
+        //myInven.ShotTheBlock()
     }
 
     private float checkTime;

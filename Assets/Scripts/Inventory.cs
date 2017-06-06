@@ -1,15 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    [SerializeField] Sprite [] UI_Blocks;
+    [SerializeField] Image[] UI_Slots;
+    [SerializeField] Image ItemBox;
+    public RectTransform[] OriginPos;
+
     void Start()
     {
         PlayerPrefs.GetInt("STAR", 0);
         PlayerPrefs.GetInt("COIN", 0);
         PlayerPrefs.GetInt("COLLECTION", 0);
         PlayerPrefs.GetInt("CHAR", 0);
+
+        for (int i = 0; i < 5; i++)
+        {
+            OriginPos[i] = UI_Slots[i].rectTransform;
+            OriginPos[i].anchoredPosition = UI_Slots[i].rectTransform.anchoredPosition;
+        }
     }
 
 /*
@@ -30,6 +43,7 @@ public class Inventory : MonoBehaviour
  *  BLOCK f(x) [ BLOCK FX ] 
  *  BLOCK g(x) [ BLOCK GX ]
  *  BLOCK h(x) [ BLOCK HX ] 
+ *  BLOCK ^    [ BLOCK ROOT ]
  */
     public bool CheckInventory(string _key) // if have a value, return true
     {
@@ -90,49 +104,84 @@ public class Inventory : MonoBehaviour
         PlayerPrefs.DeleteKey("BLOCK X");
         PlayerPrefs.DeleteKey("BLOCK Y");
         PlayerPrefs.DeleteKey("BLOCK Z");
+        PlayerPrefs.DeleteKey("BLOCK ROOT");
 
         return true;
     }
 
-    public string ShowInventory()
+    public void ShowInventory()
     {
-        string Buffer = null;
+        int count = 0;
 
-        Buffer =  "///////////////////\n";
-        Buffer += "//Inventory Start//\n\n";
+        if (PlayerPrefs.GetInt("BLOCK 0") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[0]; }
+        if (PlayerPrefs.GetInt("BLOCK 1") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[1]; }
+        if (PlayerPrefs.GetInt("BLOCK 2") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[2]; }
+        if (PlayerPrefs.GetInt("BLOCK 3") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[3]; }
+        if (PlayerPrefs.GetInt("BLOCK 4") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[4]; }
+        if (PlayerPrefs.GetInt("BLOCK 5") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[5]; }
+        if (PlayerPrefs.GetInt("BLOCK 6") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[6]; }
+        if (PlayerPrefs.GetInt("BLOCK 7") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[7]; }
+        if (PlayerPrefs.GetInt("BLOCK 8") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[8]; }
+        if (PlayerPrefs.GetInt("BLOCK 9") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[9]; }
 
-        if (PlayerPrefs.GetInt("BLOCK 0") > 0)  Buffer += "[ BLOCK 0 ]\n";
-        if (PlayerPrefs.GetInt("BLOCK 1") > 0)  Buffer += "[ BLOCK 1 ]\n";
-        if (PlayerPrefs.GetInt("BLOCK 2") > 0)  Buffer += "[ BLOCK 2 ]\n";
-        if (PlayerPrefs.GetInt("BLOCK 3") > 0)  Buffer += "[ BLOCK 3 ]\n";
-        if (PlayerPrefs.GetInt("BLOCK 4") > 0)  Buffer += "[ BLOCK 4 ]\n";
-        if (PlayerPrefs.GetInt("BLOCK 5") > 0)  Buffer += "[ BLOCK 5 ]\n";
-        if (PlayerPrefs.GetInt("BLOCK 6") > 0)  Buffer += "[ BLOCK 6 ]\n";
-        if (PlayerPrefs.GetInt("BLOCK 7") > 0)  Buffer += "[ BLOCK 7 ]\n";
-        if (PlayerPrefs.GetInt("BLOCK 8") > 0)  Buffer += "[ BLOCK 8 ]\n";
-        if (PlayerPrefs.GetInt("BLOCK 9") > 0)  Buffer += "[ BLOCK 9 ]\n";
+        if (PlayerPrefs.GetInt("BLOCK LEFT") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[10]; }
+        if (PlayerPrefs.GetInt("BLOCK RIGHT") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[11]; }
+        if (PlayerPrefs.GetInt("BLOCK EQUAL") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[12]; }
+        if (PlayerPrefs.GetInt("BLOCK PLUS") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[13]; }
+        if (PlayerPrefs.GetInt("BLOCK MINUS") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[14]; }
+        if (PlayerPrefs.GetInt("BLOCK DIVIDE") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[15]; }
+        if (PlayerPrefs.GetInt("BLOCK MULTY") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[16]; }
 
-        if (PlayerPrefs.GetInt("BLOCK LEFT") > 0) Buffer += "[ BLOCK > ]\n";
-        if (PlayerPrefs.GetInt("BLOCK RIGHT") > 0) Buffer += "[ BLOCK < ]\n";
-        if (PlayerPrefs.GetInt("BLOCK EQUAL") > 0) Buffer += "[ BLOCK = ]\n";
-        if (PlayerPrefs.GetInt("BLOCK PLUS") > 0) Buffer += "[ BLOCK + ]\n";
-        if (PlayerPrefs.GetInt("BLOCK MINUS") > 0) Buffer += "[ BLOCK - ]\n";
-        if (PlayerPrefs.GetInt("BLOCK DIVIDE") > 0) Buffer += "[ BLOCK ÷ ]\n";
-        if (PlayerPrefs.GetInt("BLOCK MULTY") > 0) Buffer += "[ BLOCK * ]\n";
+        if (PlayerPrefs.GetInt("BLOCK FX") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[17]; }
+        if (PlayerPrefs.GetInt("BLOCK GX") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[18]; }
+        if (PlayerPrefs.GetInt("BLOCK HX") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[19]; }
 
-        if (PlayerPrefs.GetInt("BLOCK FX") > 0) Buffer += "[ BLOCK f(x) ]\n";
-        if (PlayerPrefs.GetInt("BLOCK GX") > 0) Buffer += "[ BLOCK g(x) ]\n";
-        if (PlayerPrefs.GetInt("BLOCK HX") > 0) Buffer += "[ BLOCK h(x) ]\n";
+        if (PlayerPrefs.GetInt("BLOCK X") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[20]; }
+        if (PlayerPrefs.GetInt("BLOCK Y") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[21]; }
+        if (PlayerPrefs.GetInt("BLOCK Z") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[22]; }
+        if (PlayerPrefs.GetInt("BLOCK ROOT") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[23]; }
 
-        if (PlayerPrefs.GetInt("BLOCK X") > 0) Buffer += "[ BLOCK X ]\n";
-        if (PlayerPrefs.GetInt("BLOCK Y") > 0) Buffer += "[ BLOCK Y ]\n";
-        if (PlayerPrefs.GetInt("BLOCK Z") > 0) Buffer += "[ BLOCK Z ]\n";
+        //ShotTheBlock();
+    }
 
+    public void AddCoin()
+    {
+        int CoinNum = PlayerPrefs.GetInt("COIN");
+        CoinNum++;
+        PlayerPrefs.SetInt("COIN", CoinNum);
+    }
 
+    IEnumerator UpdateMove(Image Target, Vector3 dstPosition, float moveTime, float delayTime, Action callback)
+    {
+        Vector3 srcPosition = Target.rectTransform.anchoredPosition;
+        for (float rate = 0.0f; rate < 1.0f; rate += Time.deltaTime / moveTime)
+        {
+            Target.rectTransform.anchoredPosition = Vector3.Lerp(srcPosition, dstPosition, rate);
+            yield return null;
+        }
+        yield return new WaitForSeconds(delayTime);
+        for (float rate = 0.0f; rate < 1.0f; rate += Time.deltaTime / moveTime)
+        {
+            Target.rectTransform.anchoredPosition = Vector3.Lerp(dstPosition, srcPosition, rate);
+            yield return null;
+        }
+        if (callback != null)
+            callback();
+    }
 
-        Buffer += "\n// Inventory End //";
+    public void ShotTheBlock()
+    {  
+        for (int i = 0; i < 5; i++)
+        {
+            //OriginPos[i].position = UI_Slots[i].transform.position;
+            //UI_Slots[i].rectTransform.anchoredPosition = ItemBox.rectTransform.anchoredPosition;
+            StartCoroutine(UpdateMove(UI_Slots[i], OriginPos[i].anchoredPosition, 0.5f, 0f, null));
+        }
+    }
 
-        print(Buffer);
-        return Buffer;
+    public void BlockOnClick()
+    {
+        print("Clicked");
     }
 }
+

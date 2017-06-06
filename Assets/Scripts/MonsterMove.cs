@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MonsterMove : MonoBehaviour
 {
+    public int MonsterType;
     public float movePower = 1f;
 
     Rigidbody2D m_Rigidbody;
@@ -48,16 +49,19 @@ public class MonsterMove : MonoBehaviour
                 MoveRight();
                 break;
             case 3:
-                Vector3 TargetPos = TraceTarget.transform.position;
+                if(MonsterType == 1)
+                {
+                    Vector3 TargetPos = TraceTarget.transform.position;
 
-                movePower = 5f;
+                    movePower = 5f;
 
-                if (TargetPos.x < transform.position.x - 0.1f)
-                    MoveLeft();
-                else if (TargetPos.x > transform.position.x + 0.1f)
-                    MoveRight();
-                else
-                    moveDir = Vector3.zero;
+                    if (TargetPos.x < transform.position.x - 0.1f)
+                        MoveLeft();
+                    else if (TargetPos.x > transform.position.x + 0.1f)
+                        MoveRight();
+                    else
+                        moveDir = Vector3.zero;
+                }
 
                 break;
         }
@@ -65,15 +69,9 @@ public class MonsterMove : MonoBehaviour
         transform.position += moveDir * movePower * Time.fixedDeltaTime;
     }
 
-    void OnTriggerEnter2D(Collider2D Col)
-    {
-        
-    }
-
     void OnTriggerStay2D(Collider2D Col)
     {
-
-        if(movementFlag != 0)
+        if(movementFlag != 0 && MonsterType == 1)
             if (Col.gameObject.tag == "Player")
             {
                 TraceTarget = Col.gameObject;
@@ -83,7 +81,7 @@ public class MonsterMove : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D Col)
     {
-        if (movementFlag != 0)
+        if (movementFlag != 0 && MonsterType == 1)
             if (Col.gameObject.tag == "Player")
             {
                 StartCoroutine(ChangeMovement());
@@ -139,11 +137,16 @@ public class MonsterMove : MonoBehaviour
         if (movementFlag == 0)
            yield return 0;
 
-        yield return new WaitForSeconds(3.0f);
-
         if (transform.localScale.x > 0)
             movementFlag = 2;
         else
             movementFlag = 1;
+
+        yield return new WaitForSeconds(3.0f);
+
+        if (transform.localScale.x > 0)
+            movementFlag = 1;
+        else
+            movementFlag = 2;
     }
 }
