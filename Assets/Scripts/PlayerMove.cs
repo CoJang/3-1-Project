@@ -131,7 +131,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
             m_Rigidbody.velocity = Vector2.zero;
             m_Rigidbody.AddForce(HitDirection, ForceMode2D.Impulse);
-            //m_anim.SetTrigger("Hit");
 
             RemoveLife();
 
@@ -178,6 +177,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             keyman.enabled = false;
             myInven.DeleteBlocks();
         }
+
         if(other.gameObject.tag == "Coin")
         {
             myInven.AddCoin();
@@ -234,28 +234,35 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     public void ShowInven()
     {
         myInven.ShowInventory();
-        //myInven.ShotTheBlock()
     }
-
+    public void CloseInven()
+    {
+        myInven.CollectBlock();
+    }
     public void Slot1Touched()
     {
         BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(0);
+        isItemHold = true;
     }
     public void Slot2Touched()
     {
         BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(1);
+        isItemHold = true;
     }
     public void Slot3Touched()
     {
         BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(2);
+        isItemHold = true;
     }
     public void Slot4Touched()
     {
         BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(3);
+        isItemHold = true;
     }
     public void Slot5Touched()
     {
         BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(4);
+        isItemHold = true;
     }
 
     private float checkTime;

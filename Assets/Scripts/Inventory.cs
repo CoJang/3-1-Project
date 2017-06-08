@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] Sprite [] UI_Blocks;
     [SerializeField] Image[] UI_Slots;
     [SerializeField] Image ItemBox;
-    public RectTransform[] OriginPos;
+    [SerializeField] SlotContrl slotContrl;
 
     void Start()
     {
@@ -18,12 +18,6 @@ public class Inventory : MonoBehaviour
         PlayerPrefs.GetInt("COIN", 0);
         PlayerPrefs.GetInt("COLLECTION", 0);
         PlayerPrefs.GetInt("CHAR", 0);
-
-        for (int i = 0; i < 5; i++)
-        {
-            OriginPos[i] = UI_Slots[i].rectTransform;
-            OriginPos[i].anchoredPosition = UI_Slots[i].rectTransform.anchoredPosition;
-        }
     }
 
 /*
@@ -147,8 +141,8 @@ public class Inventory : MonoBehaviour
         if (PlayerPrefs.GetInt("BLOCK Y") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[21]; PlayerPrefs.SetInt("SLOT " + count, 21); }
         if (PlayerPrefs.GetInt("BLOCK Z") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[22]; PlayerPrefs.SetInt("SLOT " + count, 22); }
         if (PlayerPrefs.GetInt("BLOCK ROOT") > 0 && count < 5) { UI_Slots[count].enabled = true; UI_Slots[count++].sprite = UI_Blocks[23]; PlayerPrefs.SetInt("SLOT " + count, 23); }
-       
-        //ShotTheBlock();
+
+        slotContrl.ShotBlocks();
     }
 
     public void AddCoin()
@@ -177,16 +171,6 @@ public class Inventory : MonoBehaviour
             callback();
     }
 
-    public void ShotTheBlock()
-    {  
-        for (int i = 0; i < 5; i++)
-        {
-            //OriginPos[i].position = UI_Slots[i].transform.position;
-            //UI_Slots[i].rectTransform.anchoredPosition = ItemBox.rectTransform.anchoredPosition;
-            StartCoroutine(UpdateMove(UI_Slots[i], OriginPos[i].anchoredPosition, 0.5f, 0f, null));
-        }
-    }
-
     public void BlockOnClick()
     {
         print("Clicked");
@@ -198,14 +182,26 @@ public class Inventory : MonoBehaviour
 
         if (UI_Slots[slotNum].enabled)
         {
-            SpriteNum = UI_Blocks[PlayerPrefs.GetInt("SLOT " + slotNum)];
+            SpriteNum = UI_Blocks[PlayerPrefs.GetInt("SLOT " + (++slotNum))];
         }
         else
         {
-            SpriteNum = UI_Blocks[0];
+            SpriteNum = null;
         }
 
+        slotContrl.CollectBlocks();
+
         return SpriteNum;
+    }
+
+    public void CollectBlock()
+    {
+        slotContrl.CollectBlocks();
+
+        for(int i = 0; i < 5; i++)
+        {
+            UI_Slots[i].enabled = false;
+        }
     }
 }
 

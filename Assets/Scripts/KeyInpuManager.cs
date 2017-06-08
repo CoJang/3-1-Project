@@ -99,38 +99,46 @@ public class KeyInpuManager : MonoBehaviour {
                 if (RectTransformUtility.RectangleContainsScreenPoint(Left_Arrow, Input.mousePosition, Camera.main))
                 {
                     Listerner.Lmove();
+                    //Listerner.CloseInven();
                 }
 
                 if (RectTransformUtility.RectangleContainsScreenPoint(Right_Arrow, Input.mousePosition, Camera.main))
                 {
                     Listerner.Rmove();
+                    //Listerner.CloseInven();
                 }
 
                 if (RectTransformUtility.RectangleContainsScreenPoint(Jump_BT, Input.mousePosition, Camera.main))
                 {
                     jumpcheck = true;
                     Listerner.CheckTouchedTime();
+                   // Listerner.CloseInven();
                 }
 
                 if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[0], Input.mousePosition, Camera.main))
                 {
                     Listerner.Slot1Touched();
+                    //Listerner.CloseInven();
                 }
                 if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[1], Input.mousePosition, Camera.main))
                 {
                     Listerner.Slot2Touched();
+                    //Listerner.CloseInven();
                 }
                 if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[2], Input.mousePosition, Camera.main))
                 {
                     Listerner.Slot3Touched();
+                    //Listerner.CloseInven();
                 }
                 if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[3], Input.mousePosition, Camera.main))
                 {
                     Listerner.Slot4Touched();
+                   // Listerner.CloseInven();
                 }
                 if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[4], Input.mousePosition, Camera.main))
                 {
                     Listerner.Slot5Touched();
+                   // Listerner.CloseInven();
                 }
             }
 
@@ -167,6 +175,7 @@ public class KeyInpuManager : MonoBehaviour {
             if(Input.GetKeyDown(KeyCode.Z))
             {
                 Listerner.ShowInven();
+                //Listerner.CloseInven();
             }
 
             if (Input.GetAxisRaw("Horizontal") > 0)

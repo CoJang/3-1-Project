@@ -17,6 +17,8 @@ public interface IinputListener
     void Slot3Touched();
     void Slot4Touched();
     void Slot5Touched();
+
+    void CloseInven();
 }
 
 public class UITouchCheck : MonoBehaviour
