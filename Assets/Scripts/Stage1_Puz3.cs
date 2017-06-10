@@ -8,20 +8,33 @@ public class Stage1_Puz3 : MonoBehaviour {
     [SerializeField] GameObject    Circle;
     [SerializeField] CameraMove    m_CameraMove;
 
+    public Transform CamPos;
+
+    bool Invoked;
+
     void Awake ()
     {
+        Circle.GetComponent<SpriteRenderer>().enabled = false;
         Circle.GetComponent<CircleCollider2D>().enabled = false;
         Circle.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
+        Invoked = false;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-		if(Slots[0].Satisfied && Slots[1].Satisfied)
+		if(Slots[0].Satisfied && Slots[1].Satisfied && !Invoked)
         {
-            m_CameraMove.Move(Circle.transform.position, 1f, 0.5f, null);
+            m_CameraMove.Move(CamPos.position, 2f, 0.5f, null);
+            Circle.GetComponent<SpriteRenderer>().enabled = true;
             Circle.GetComponent<CircleCollider2D>().enabled = true;
             Circle.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            Circle.GetComponent<AudioSource>().Play();
+            Invoked = true;
+
+            Destroy(Circle, 3f);
+            PlayerPrefs.DeleteKey("BLOCK ROOT");
+            PlayerPrefs.DeleteKey("BLOCK 2");
         }
 
     }

@@ -6,17 +6,17 @@ public class MonsterBounce : MonoBehaviour
 {
     public int MonsterType;
     MonsterMove MonsterScript;
-    GameObject MonsterBody;
+    public GameObject MonsterBody;
 
 	// Use this for initialization
 	void Awake ()
     {
-        if (MonsterType == 1)
-        {
-            MonsterBody = GameObject.Find("Monster B");
-        }
-        else
-            MonsterBody = GameObject.Find("AirMonster");
+        //if (MonsterType == 1)
+        //{
+        //    MonsterBody = GameObject.Find("Monster B");
+        //}
+        //else
+        //    MonsterBody = GameObject.Find("AirMonster");
 
         MonsterScript = MonsterBody.GetComponentInChildren<MonsterMove>();
     }
