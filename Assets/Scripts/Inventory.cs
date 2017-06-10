@@ -12,34 +12,42 @@ public class Inventory : MonoBehaviour
     [SerializeField] Image ItemBox;
     [SerializeField] SlotContrl slotContrl;
 
+    [SerializeField] GameObject EmptyItem;
+    PlayerMove player;
+
     void Start()
     {
         PlayerPrefs.GetInt("STAR", 0);
         PlayerPrefs.GetInt("COIN", 0);
         PlayerPrefs.GetInt("COLLECTION", 0);
         PlayerPrefs.GetInt("CHAR", 0);
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMove>();
+
+        EmptyItem.GetComponent<SpriteRenderer>().sprite = null;
+        EmptyItem.GetComponent<ItemScript>().BlockKey = "NULL";
     }
 
-/*
- *  Num 0 = NULL [ None ]
- *  Num 1 = HAVE
- *  Num 2~ = HAVING MULTY
- * 
- *  ////  Blocks //// [ KEY NAME ]
- *  BLOCK 0 ~ BLOCK 9
- *  BLOCK > [ BLOCK LEFT ]
- *  BLOCK < [ BLOCK RIGHT ]
- *  BLOCK X ,Y, Z
- *  BLOCK = [ BLOCK EQUAL ]
- *  BLOCK + [ BLOCK PLUS ]
- *  BLOCK - [ BLOCK MINUS ]
- *  BLOCK ÷ [ BLOCK DIVIDE ]
- *  BLOCK * [ BLOCK MULTY ]
- *  BLOCK f(x) [ BLOCK FX ] 
- *  BLOCK g(x) [ BLOCK GX ]
- *  BLOCK h(x) [ BLOCK HX ] 
- *  BLOCK ^    [ BLOCK ROOT ]
- */
+    /*
+     *  Num 0 = NULL [ None ]
+     *  Num 1 = HAVE
+     *  Num 2~ = HAVING MULTY
+     * 
+     *  ////  Blocks //// [ KEY NAME ]
+     *  BLOCK 0 ~ BLOCK 9
+     *  BLOCK > [ BLOCK LEFT ]
+     *  BLOCK < [ BLOCK RIGHT ]
+     *  BLOCK X ,Y, Z
+     *  BLOCK = [ BLOCK EQUAL ]
+     *  BLOCK + [ BLOCK PLUS ]
+     *  BLOCK - [ BLOCK MINUS ]
+     *  BLOCK ÷ [ BLOCK DIVIDE ]
+     *  BLOCK * [ BLOCK MULTY ]
+     *  BLOCK f(x) [ BLOCK FX ] 
+     *  BLOCK g(x) [ BLOCK GX ]
+     *  BLOCK h(x) [ BLOCK HX ] 
+     *  BLOCK ^    [ BLOCK ROOT ]
+     */
     public bool CheckInventory(string _key) // if have a value, return true
     {
         if (PlayerPrefs.HasKey(_key))
@@ -171,27 +179,26 @@ public class Inventory : MonoBehaviour
             callback();
     }
 
-    public void BlockOnClick()
+    public GameObject CheckSlot(int slotNum)
     {
-        print("Clicked");
-    }
-
-    public Sprite CheckSlot(int slotNum)
-    {
-        Sprite SpriteNum;
-
-        if (UI_Slots[slotNum].enabled)
+       // 
+        //if(UI_Slots[slotNum].enabled)
+        if (UI_Slots[slotNum].isActiveAndEnabled)
         {
-            SpriteNum = UI_Blocks[PlayerPrefs.GetInt("SLOT " + (++slotNum))];
+            EmptyItem.GetComponent<SpriteRenderer>().sprite = UI_Blocks[PlayerPrefs.GetInt("SLOT " + (++slotNum))];
+            EmptyItem.GetComponent<ItemScript>().BlockKey = GetBlockKey(PlayerPrefs.GetInt("SLOT " + (slotNum)));
+            //player.SetEquip(true);
         }
         else
         {
-            SpriteNum = null;
+            EmptyItem.GetComponent<SpriteRenderer>().sprite = null;
+            EmptyItem.GetComponent<ItemScript>().BlockKey = "NULL";
+            //player.SetEquip(false);
         }
 
         slotContrl.CollectBlocks();
 
-        return SpriteNum;
+        return EmptyItem;
     }
 
     public void CollectBlock()
@@ -202,6 +209,30 @@ public class Inventory : MonoBehaviour
         {
             UI_Slots[i].enabled = false;
         }
+    }
+
+    public string GetBlockKey(int SprNum)
+    {
+        string BlockKey = "NULL";
+
+        if (SprNum < 10)
+            BlockKey = "BLOCK " + SprNum;
+        else if (SprNum == 10) BlockKey = "BLOCK LEFT";
+        else if (SprNum == 11) BlockKey = "BLOCK RIGHT";
+        else if (SprNum == 12) BlockKey = "BLOCK EQUAL";
+        else if( SprNum == 13) BlockKey = "BLOCK PLUS";
+        else if (SprNum == 14) BlockKey = "BLOCK MINUS";
+        else if (SprNum == 15) BlockKey = "BLOCK DIVIDE";
+        else if (SprNum == 16) BlockKey = "BLOCK MULTY";
+        else if (SprNum == 17) BlockKey = "BLOCK FX";
+        else if (SprNum == 18) BlockKey = "BLOCK GX";
+        else if (SprNum == 19) BlockKey = "BLOCK HX";
+        else if (SprNum == 20) BlockKey = "BLOCK X";
+        else if (SprNum == 21) BlockKey = "BLOCK Y";
+        else if (SprNum == 22) BlockKey = "BLOCK Z";
+        else if (SprNum == 23) BlockKey = "BLOCK ROOT";
+
+        return BlockKey;
     }
 }
 

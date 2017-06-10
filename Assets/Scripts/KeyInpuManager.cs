@@ -115,6 +115,11 @@ public class KeyInpuManager : MonoBehaviour {
                    // Listerner.CloseInven();
                 }
 
+            }
+
+            if(Input.GetMouseButtonUp(0))
+            {
+
                 if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[0], Input.mousePosition, Camera.main))
                 {
                     Listerner.Slot1Touched();
@@ -133,18 +138,15 @@ public class KeyInpuManager : MonoBehaviour {
                 if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[3], Input.mousePosition, Camera.main))
                 {
                     Listerner.Slot4Touched();
-                   // Listerner.CloseInven();
+                    // Listerner.CloseInven();
                 }
                 if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[4], Input.mousePosition, Camera.main))
                 {
                     Listerner.Slot5Touched();
-                   // Listerner.CloseInven();
+                    // Listerner.CloseInven();
                 }
-            }
 
-            if(Input.GetMouseButtonUp(0))
-            {
-                if(jumpcheck)
+                if (jumpcheck)
                 {
                     jumpcheck = false;
                     Listerner.Jump();

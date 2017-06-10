@@ -11,6 +11,8 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     [SerializeField] GameObject Hit_effect;
     [SerializeField] GameObject Get_effect;
     [SerializeField] GameObject BlockSlot;
+    //[SerializeField]
+    GameObject EmptyBlock;
 
     private bool facingRight = true;
     private bool jump = false;
@@ -155,7 +157,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
             Instantiate(Get_effect, new Vector3(transform.position.x, transform.position.y + 1.2f, transform.position.z), Quaternion.identity);
             myInven.SaveItem(item.GetBlockKey(), 1);
-            Destroy(other.gameObject, 0.5f);
+            Destroy(other.gameObject, 0.2f);
         }
 
         if(other.gameObject.tag == "MonsterHitBox")
@@ -241,28 +243,48 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     }
     public void Slot1Touched()
     {
-        BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(0);
-        isItemHold = true;
+        EmptyBlock = myInven.CheckSlot(0);
+        if(EmptyBlock.GetComponent<SpriteRenderer>().sprite != null && !isItemHold)
+        {
+            isItemHold = true;
+            Instantiate(EmptyBlock, BlockSlot.transform.position, Quaternion.identity);
+        }
     }
     public void Slot2Touched()
     {
-        BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(1);
-        isItemHold = true;
+        EmptyBlock = myInven.CheckSlot(1);
+        if (EmptyBlock.GetComponent<SpriteRenderer>().sprite != null && !isItemHold)
+        {
+            isItemHold = true;
+            Instantiate(EmptyBlock, BlockSlot.transform.position, Quaternion.identity);
+        }
     }
     public void Slot3Touched()
     {
-        BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(2);
-        isItemHold = true;
+        EmptyBlock = myInven.CheckSlot(2);
+        if (EmptyBlock.GetComponent<SpriteRenderer>().sprite != null && !isItemHold)
+        {
+            isItemHold = true;
+            Instantiate(EmptyBlock, BlockSlot.transform.position, Quaternion.identity);
+        }
     }
     public void Slot4Touched()
     {
-        BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(3);
-        isItemHold = true;
+        EmptyBlock = myInven.CheckSlot(3);
+        if (EmptyBlock.GetComponent<SpriteRenderer>().sprite != null && !isItemHold)
+        {
+            isItemHold = true;
+            Instantiate(EmptyBlock, BlockSlot.transform.position, Quaternion.identity);
+        }
     }
     public void Slot5Touched()
     {
-        BlockSlot.GetComponent<SpriteRenderer>().sprite = myInven.CheckSlot(4);
-        isItemHold = true;
+        EmptyBlock = myInven.CheckSlot(4);
+        if (EmptyBlock.GetComponent<SpriteRenderer>().sprite != null && !isItemHold)
+        {
+            isItemHold = true;
+            Instantiate(EmptyBlock, BlockSlot.transform.position, Quaternion.identity);
+        }
     }
 
     private float checkTime;
@@ -356,6 +378,11 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             case 0:
                 break;
         }
+    }
+
+    public void SetEquip(bool TrueOrFalse)
+    {
+        isItemHold = TrueOrFalse;
     }
 
 
