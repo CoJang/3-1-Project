@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stage1_Puz2 : MonoBehaviour
+public class Stage1_Puz2 : PuzzleInterface
 {
     [SerializeField] VariableBlock Block;
     [SerializeField] Gate m_Gate;
@@ -19,7 +19,7 @@ public class Stage1_Puz2 : MonoBehaviour
         CheckIsCorrect();
     }
 
-    public bool CheckIsCorrect()
+    public override bool CheckIsCorrect()
     {
         if (Block.Satisfied)
         {

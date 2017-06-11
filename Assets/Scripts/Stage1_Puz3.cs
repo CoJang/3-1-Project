@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stage1_Puz3 : MonoBehaviour {
+public class Stage1_Puz3 : PuzzleInterface
+{
 
     [SerializeField] PuzzleSlots[] Slots;
     [SerializeField] GameObject    Circle;
@@ -23,7 +25,12 @@ public class Stage1_Puz3 : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		if(Slots[0].Satisfied && Slots[1].Satisfied && !Invoked)
+        CheckIsCorrect();
+    }
+
+    public override bool CheckIsCorrect()
+    {
+        if (Slots[0].Satisfied && Slots[1].Satisfied && !Invoked)
         {
             m_CameraMove.Move(CamPos.position, 2f, 0.5f, null);
             Circle.GetComponent<SpriteRenderer>().enabled = true;
@@ -35,7 +42,10 @@ public class Stage1_Puz3 : MonoBehaviour {
             Destroy(Circle, 3f);
             PlayerPrefs.DeleteKey("BLOCK ROOT");
             PlayerPrefs.DeleteKey("BLOCK 2");
-        }
 
+            return true;
+        }
+        else
+            return false;
     }
 }

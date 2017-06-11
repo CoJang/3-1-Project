@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stage1_Puz4 : MonoBehaviour
+public class Stage1_Puz4 : PuzzleInterface
 {
     [SerializeField] PuzzleSlots Slot;
     [SerializeField] GameObject[] FeedbackBlocks;
@@ -20,20 +21,25 @@ public class Stage1_Puz4 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        CheckIsCorrect();
+    }
+
+    public override bool CheckIsCorrect()
+    {
         if (Slot.Satisfied && !Invoked)
         {
             m_CameraMove.Move(CamPos.position, 1f, 0.5f, null);
             Invoked = true;
 
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 FeedbackBlocks[i].SetActive(true);
-                //FeedbackBlocks[4].SetActive(true);
             }
-            //Destroy(Circle, 3f);
-            //PlayerPrefs.DeleteKey("BLOCK ROOT");
             PlayerPrefs.DeleteKey("BLOCK 5");
+            return true;
         }
-
+        else
+            return false;
     }
 }

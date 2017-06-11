@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stage1_Puz1 : MonoBehaviour
+public class Stage1_Puz1 : PuzzleInterface
 {
     [SerializeField] Sprite[] ItemList;
     [SerializeField] VariableBlock Block;
@@ -35,7 +35,7 @@ public class Stage1_Puz1 : MonoBehaviour
         }
     }
 
-    virtual public bool CheckIsCorrect()
+    override public bool CheckIsCorrect()
     {
         if (Block.Satisfied && gameObject.GetComponent<SpriteRenderer>().sprite == ItemList[6])
         {

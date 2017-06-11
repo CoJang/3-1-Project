@@ -25,6 +25,7 @@ public class PuzzleSlots : MonoBehaviour
     {
         if (other.gameObject.tag == "Item")
         {
+            print("ItemColl!");
             other.gameObject.GetComponent<ItemScript>().BlockKey = "NULL";
             other.gameObject.GetComponent<SpriteRenderer>().sprite = null;
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMove>().SetEquip(false);
