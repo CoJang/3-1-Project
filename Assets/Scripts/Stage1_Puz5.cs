@@ -30,7 +30,7 @@ public class Stage1_Puz5 : PuzzleInterface
     {
         if (Inequality.SprNum == 0 && Variable.SprNum > 5) // '5' < _
         {
-            print("[ Balance_DownRight ]");
+            //print("[ Balance_DownRight ]");
             Balance.GetComponent<Animator>().SetBool("Idle", false);
             Balance.GetComponent<Animator>().SetBool("DownRight", true);
             Balance.GetComponent<Animator>().SetBool("DownLeft", false);
@@ -38,7 +38,7 @@ public class Stage1_Puz5 : PuzzleInterface
         }
         else if (Inequality.SprNum == 1 && Variable.SprNum < 5) // '5' > _
         {
-            print("[ Balance_DownLeft ]");
+            //print("[ Balance_DownLeft ]");
             Balance.GetComponent<Animator>().SetBool("Idle", false);
             Balance.GetComponent<Animator>().SetBool("DownRight", false);
             Balance.GetComponent<Animator>().SetBool("DownLeft", true);
@@ -46,7 +46,7 @@ public class Stage1_Puz5 : PuzzleInterface
         }
         else if (Inequality.SprNum == 2 && Variable.SprNum == 5) // '5' = _
         {
-            print("[ Balance_Idle ]");
+            //print("[ Balance_Idle ]");
             Balance.GetComponent<Animator>().SetBool("Idle", true);
             Balance.GetComponent<Animator>().SetBool("DownRight", false);
             Balance.GetComponent<Animator>().SetBool("DownLeft", false);

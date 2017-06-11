@@ -229,7 +229,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             Instantiate(Jump_effect, new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z), Quaternion.identity);
             jump = false;
             m_Rigidbody.AddForce(new Vector2(0f, JumpForce * TimeMutiply)); // 플레이어 포지션 변경 [ 점프 ]
-            TimeMutiply = 0.25f;
+            TimeMutiply = 0.63f;
         }
     }
 
@@ -296,18 +296,24 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
         while (jump) // 점프하기 직전까지 계속 췤
         {
-            checkTime += 0.4f;
+            checkTime += 0.10f;
 
-            if (checkTime < 0.5f)
-                TimeMutiply = 0.55f;
-            else if (checkTime >= 0.5f && checkTime < 0.9f)
-                TimeMutiply = 0.75f;
-            else if (checkTime >= 0.9f && checkTime <= 1.2f)
-                TimeMutiply = 0.85f;
-            else if (checkTime > 1.4f)
-                TimeMutiply = 1.00f;
+            if (checkTime < 0.21f)
+            {
+                TimeMutiply = 0.63f;
+                //print("TimeMutiply = 0.35f");
+            }
+            else if (checkTime >= 0.30f)
+            {
+                TimeMutiply = 0.90f;
+                //print("TimeMutiply = 1.00f");
+            }
+            //else if (checkTime >= 0.9f && checkTime <= 1.2f)
+            //    TimeMutiply = 0.85f;
+            //else if (checkTime > 1.4f)
+            //    TimeMutiply = 1.00f;
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.10f);
 
         }
     }

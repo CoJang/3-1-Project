@@ -6,6 +6,7 @@ public class Stage1_Puz6 : PuzzleInterface
 {
     [SerializeField] GameObject FxBlock;
     [SerializeField] PuzzleSlots Slot;
+    [SerializeField] GameObject Graph;
 
     // Use this for initialization
     void Start ()
@@ -21,9 +22,10 @@ public class Stage1_Puz6 : PuzzleInterface
 
     public override bool CheckIsCorrect()
     {
-        if (Slot.Satisfied)
+        if (Slot.Satisfied && FxBlock.GetComponent<FxBlock>().Satisfied)
         {
             FxBlock.GetComponent<Animator>().SetTrigger("Satisfied");
+            PlayerPrefs.DeleteKey("BLOCK MINUS");
             return true;
         }
         else

@@ -10,5 +10,10 @@ public class Stone : MonoBehaviour
         {
             other.gameObject.GetComponent<MonsterMove>().Die();
         }
+
+        if(other.gameObject.tag == "DeadLine")
+        {
+            gameObject.GetComponent<AudioSource>().Stop();
+        }
     }
 }

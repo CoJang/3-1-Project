@@ -8,6 +8,7 @@ public class PuzzleSlots : MonoBehaviour
 
     public bool Satisfied;
     public int ConditionSprNum;
+    int SprNum;
 
     // Use this for initialization
     void Start()
@@ -25,12 +26,12 @@ public class PuzzleSlots : MonoBehaviour
     {
         if (other.gameObject.tag == "Item")
         {
-            print("ItemColl!");
             other.gameObject.GetComponent<ItemScript>().BlockKey = "NULL";
             other.gameObject.GetComponent<SpriteRenderer>().sprite = null;
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMove>().SetEquip(false);
 
             gameObject.GetComponent<SpriteRenderer>().sprite = ItemList[other.gameObject.GetComponent<ItemScript>().GetBlockSprNum()];
+            SprNum = other.gameObject.GetComponent<ItemScript>().GetBlockSprNum();
         }
     }
 
@@ -45,5 +46,10 @@ public class PuzzleSlots : MonoBehaviour
 
             return false;
         }
+    }
+
+    public int GetSpriteNum()
+    {
+        return SprNum;
     }
 }

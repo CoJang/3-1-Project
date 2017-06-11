@@ -8,6 +8,7 @@ public class Stage1_Puz4 : PuzzleInterface
     [SerializeField] PuzzleSlots Slot;
     [SerializeField] GameObject[] FeedbackBlocks;
     [SerializeField] CameraMove m_CameraMove;
+    [SerializeField] VariableBlock Block;
 
     public Transform CamPos;
 
@@ -27,7 +28,7 @@ public class Stage1_Puz4 : PuzzleInterface
 
     public override bool CheckIsCorrect()
     {
-        if (Slot.Satisfied && !Invoked)
+        if (Slot.Satisfied && !Invoked && Block.Satisfied)
         {
             m_CameraMove.Move(CamPos.position, 1f, 0.5f, null);
             Invoked = true;

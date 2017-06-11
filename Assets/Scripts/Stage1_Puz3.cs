@@ -39,7 +39,6 @@ public class Stage1_Puz3 : PuzzleInterface
             Circle.GetComponent<AudioSource>().Play();
             Invoked = true;
 
-            Destroy(Circle, 3f);
             PlayerPrefs.DeleteKey("BLOCK ROOT");
             PlayerPrefs.DeleteKey("BLOCK 2");
 
