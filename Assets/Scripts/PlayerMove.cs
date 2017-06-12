@@ -184,6 +184,11 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         {
             myInven.AddCoin();
         }
+
+        if(other.gameObject.tag == "DeadLine")
+        {
+            Die();
+        }
     }
 
     void Flip()
@@ -348,9 +353,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
     private void Die()
     {
-        isDie = true;
-        //m_anim.SetTrigger("Die");
-
         BoxCollider2D[] Colls = gameObject.GetComponents<BoxCollider2D>();
         Colls[0].enabled = false;
 
@@ -359,7 +361,16 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         Vector2 GotoHell = new Vector2(0f, +10f);
         m_Rigidbody.AddForce(GotoHell, ForceMode2D.Impulse);
 
+        UI_Canvas[0].SetAlpha(0);
+        UI_Canvas[1].SetAlpha(0);
+        UI_Canvas[2].SetAlpha(0);
+
+        if(isDie)
+            m_Rigidbody.Sleep();
+
         myInven.DeleteBlocks();
+
+        isDie = true;
     }
 
     private void RemoveLife()

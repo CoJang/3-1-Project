@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class KeyInpuManager : MonoBehaviour {
+public class KeyInpuManager : MonoBehaviour
+{
 
     public RectTransform Left_Arrow;
     public RectTransform Right_Arrow;
@@ -15,27 +16,27 @@ public class KeyInpuManager : MonoBehaviour {
     private Touch tempTouchs;
     private Vector3 touchPos;
 
-    private bool jumpcheck; 
+    private bool jumpcheck;
 
-	// Use this for initialization
-	//void Start ()
+    // Use this for initialization
+    //void Start ()
     //{
-   // }
-	
-	// Update is called once per frame
+    // }
 
-	void Update ()
+    // Update is called once per frame
+
+    void Update()
     {
 
-#if UNITY_ANDROID
-        {
+//#if UNITY_ANDROID
+        //{
             if (Input.touchCount > 0)
             {
-                for(int i = 0; i < Input.touchCount; i++)
+                for (int i = 0; i < Input.touchCount; i++)
                 {
                     tempTouchs = Input.GetTouch(i);
 
-                    if(tempTouchs.phase == TouchPhase.Began)
+                    if (tempTouchs.phase == TouchPhase.Began)
                     {
                         if (RectTransformUtility.RectangleContainsScreenPoint(Left_Arrow, tempTouchs.position, Camera.main))
                         {
@@ -47,20 +48,36 @@ public class KeyInpuManager : MonoBehaviour {
                             Listerner.Rmove();
                         }
 
-                        if (RectTransformUtility.RectangleContainsScreenPoint(Jump_BT, tempTouchs.position, Camera.main))
+                        //if (RectTransformUtility.RectangleContainsScreenPoint(Inventory_BT, tempTouchs.position, Camera.main))
+                        //{
+                        //    Listerner.ShowInven();
+                        //}
+
+                        if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[0], tempTouchs.position, Camera.main))
                         {
-                            //jumpcheck = true;
-                            //Listerner.CheckTouchedTime();
+                            Listerner.Slot1Touched();
                         }
-                        if (RectTransformUtility.RectangleContainsScreenPoint(Inventory_BT, tempTouchs.position, Camera.main))
+                        if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[1], tempTouchs.position, Camera.main))
                         {
-                            Listerner.ShowInven();
+                            Listerner.Slot2Touched();
+                        }
+                        if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[2], tempTouchs.position, Camera.main))
+                        {
+                            Listerner.Slot3Touched();
+                        }
+                        if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[3], tempTouchs.position, Camera.main))
+                        {
+                            Listerner.Slot4Touched();
+                        }
+                        if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[4], tempTouchs.position, Camera.main))
+                        {
+                            Listerner.Slot5Touched();
                         }
 
                         break;
                     }
 
-                    if(tempTouchs.phase == TouchPhase.Moved || tempTouchs.phase == TouchPhase.Stationary)
+                    if (tempTouchs.phase == TouchPhase.Moved || tempTouchs.phase == TouchPhase.Stationary)
                     {
                         if (RectTransformUtility.RectangleContainsScreenPoint(Left_Arrow, tempTouchs.position, Camera.main))
                         {
@@ -79,9 +96,9 @@ public class KeyInpuManager : MonoBehaviour {
                         }
                     }
 
-                    if(tempTouchs.phase == TouchPhase.Ended)
+                    if (tempTouchs.phase == TouchPhase.Ended)
                     {
-                        if(jumpcheck)
+                        if (jumpcheck)
                         {
                             jumpcheck = false;
                             Listerner.Jump();
@@ -89,68 +106,63 @@ public class KeyInpuManager : MonoBehaviour {
                     }
                 }
             }
-        }
+        //}
+    //}
+//}
 
+//#else // 안드로이드가 아닌 경우 아래구문 실행
+        //{
+            //if (Input.GetMouseButton(0))
+            //{
+            //    if (RectTransformUtility.RectangleContainsScreenPoint(Left_Arrow, Input.mousePosition, Camera.main))
+            //    {
+            //        Listerner.Lmove();
+            //        //Listerner.CloseInven();
+            //    }
 
-#else // 안드로이드가 아닌 경우 아래구문 실행
-        {
-            if (Input.GetMouseButton(0))
-            {
-                if (RectTransformUtility.RectangleContainsScreenPoint(Left_Arrow, Input.mousePosition, Camera.main))
-                {
-                    Listerner.Lmove();
-                    //Listerner.CloseInven();
-                }
+            //    if (RectTransformUtility.RectangleContainsScreenPoint(Right_Arrow, Input.mousePosition, Camera.main))
+            //    {
+            //        Listerner.Rmove();
+            //        //Listerner.CloseInven();
+            //    }
 
-                if (RectTransformUtility.RectangleContainsScreenPoint(Right_Arrow, Input.mousePosition, Camera.main))
-                {
-                    Listerner.Rmove();
-                    //Listerner.CloseInven();
-                }
+            //    if (RectTransformUtility.RectangleContainsScreenPoint(Jump_BT, Input.mousePosition, Camera.main))
+            //    {
+            //        jumpcheck = true;
+            //        Listerner.CheckTouchedTime();
+            //       // Listerner.CloseInven();
+            //    }
 
-                if (RectTransformUtility.RectangleContainsScreenPoint(Jump_BT, Input.mousePosition, Camera.main))
-                {
-                    jumpcheck = true;
-                    Listerner.CheckTouchedTime();
-                   // Listerner.CloseInven();
-                }
-
-            }
+            //}
 
             if(Input.GetMouseButtonUp(0))
             {
+                //if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[0], Input.mousePosition, Camera.main))
+                //{
+                //    Listerner.Slot1Touched();
+                //}
+                //if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[1], Input.mousePosition, Camera.main))
+                //{
+                //    Listerner.Slot2Touched();
+                //}
+                //if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[2], Input.mousePosition, Camera.main))
+                //{
+                //    Listerner.Slot3Touched();
+                //}
+                //if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[3], Input.mousePosition, Camera.main))
+                //{
+                //    Listerner.Slot4Touched();
+                //}
+                //if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[4], Input.mousePosition, Camera.main))
+                //{
+                //    Listerner.Slot5Touched();
+                //}
 
-                if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[0], Input.mousePosition, Camera.main))
-                {
-                    Listerner.Slot1Touched();
-                    //Listerner.CloseInven();
-                }
-                if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[1], Input.mousePosition, Camera.main))
-                {
-                    Listerner.Slot2Touched();
-                    //Listerner.CloseInven();
-                }
-                if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[2], Input.mousePosition, Camera.main))
-                {
-                    Listerner.Slot3Touched();
-                    //Listerner.CloseInven();
-                }
-                if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[3], Input.mousePosition, Camera.main))
-                {
-                    Listerner.Slot4Touched();
-                    // Listerner.CloseInven();
-                }
-                if (RectTransformUtility.RectangleContainsScreenPoint(ItemSlots[4], Input.mousePosition, Camera.main))
-                {
-                    Listerner.Slot5Touched();
-                    // Listerner.CloseInven();
-                }
-
-                if (jumpcheck)
-                {
-                    jumpcheck = false;
-                    Listerner.Jump();
-                }
+                //if (jumpcheck)
+                //{
+                //    jumpcheck = false;
+                //    Listerner.Jump();
+                //}
 
                 if (RectTransformUtility.RectangleContainsScreenPoint(Inventory_BT, Input.mousePosition, Camera.main))
                 {
@@ -159,37 +171,37 @@ public class KeyInpuManager : MonoBehaviour {
             }
 
             // Keyboard Use
-            if(Input.GetButtonDown("Jump"))
-            {
-                jumpcheck = true;
-                Listerner.CheckTouchedTime();
-            }
+            //if(Input.GetButtonDown("Jump"))
+            //{
+            //    jumpcheck = true;
+            //    Listerner.CheckTouchedTime();
+            //}
 
-            if(Input.GetKeyUp(KeyCode.Space))
-            {
-                if (jumpcheck)
-                {
-                    jumpcheck = false;
-                    Listerner.Jump();
-                }
-            }
+            //if(Input.GetKeyUp(KeyCode.Space))
+            //{
+            //    if (jumpcheck)
+            //    {
+            //        jumpcheck = false;
+            //        Listerner.Jump();
+            //    }
+            //}
 
-            if(Input.GetKeyDown(KeyCode.Z))
-            {
-                Listerner.ShowInven();
-                //Listerner.CloseInven();
-            }
+            //if(Input.GetKeyDown(KeyCode.Z))
+            //{
+            //    Listerner.ShowInven();
+            //    //Listerner.CloseInven();
+            //}
 
-            if (Input.GetAxisRaw("Horizontal") > 0)
-            {
-                Listerner.Rmove();
-            }
+            //if (Input.GetAxisRaw("Horizontal") > 0)
+            //{
+            //    Listerner.Rmove();
+            //}
 
-            if (Input.GetAxisRaw("Horizontal") < 0)
-            {
-                Listerner.Lmove();
-            }
+            //if (Input.GetAxisRaw("Horizontal") < 0)
+            //{
+            //    Listerner.Lmove();
+            //}
         }
     }
-}
-#endif
+//}
+//#endif
