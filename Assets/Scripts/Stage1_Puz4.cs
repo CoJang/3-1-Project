@@ -38,6 +38,7 @@ public class Stage1_Puz4 : PuzzleInterface
                 FeedbackBlocks[i].SetActive(true);
             }
             PlayerPrefs.DeleteKey("BLOCK 5");
+            Audio.Play();
             return true;
         }
         else

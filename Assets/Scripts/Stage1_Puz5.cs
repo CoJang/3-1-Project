@@ -34,6 +34,7 @@ public class Stage1_Puz5 : PuzzleInterface
             Balance.GetComponent<Animator>().SetBool("Idle", false);
             Balance.GetComponent<Animator>().SetBool("DownRight", true);
             Balance.GetComponent<Animator>().SetBool("DownLeft", false);
+            Audio.Play();
             return true;
         }
         else if (Inequality.SprNum == 1 && Variable.SprNum < 5) // '5' > _
@@ -42,6 +43,7 @@ public class Stage1_Puz5 : PuzzleInterface
             Balance.GetComponent<Animator>().SetBool("Idle", false);
             Balance.GetComponent<Animator>().SetBool("DownRight", false);
             Balance.GetComponent<Animator>().SetBool("DownLeft", true);
+            Audio.Play();
             return true;
         }
         else if (Inequality.SprNum == 2 && Variable.SprNum == 5) // '5' = _
@@ -50,6 +52,7 @@ public class Stage1_Puz5 : PuzzleInterface
             Balance.GetComponent<Animator>().SetBool("Idle", true);
             Balance.GetComponent<Animator>().SetBool("DownRight", false);
             Balance.GetComponent<Animator>().SetBool("DownLeft", false);
+            Audio.Play();
             return true;
         }
         else

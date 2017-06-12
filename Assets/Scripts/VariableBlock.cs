@@ -13,8 +13,12 @@ public class VariableBlock : BlockColCheck
     public bool Satisfied;
     public int MaxSprNum;
 
+    private AudioSource ColSound;
+
     void Start()
     {
+        ColSound = GetComponent<AudioSource>();
+
         if (SprNum == EventCondition)
         {
             Satisfied = true;
@@ -29,7 +33,7 @@ public class VariableBlock : BlockColCheck
     {
         Instantiate(Col_effect, new Vector3(transform.position.x, transform.position.y - 0.3f, transform.position.z), Quaternion.identity);
         Instantiate(Add_effect, new Vector3(transform.position.x, transform.position.y + 0.47f, transform.position.z), Quaternion.identity);
-
+        ColSound.Play();
         SprNum = (++SprNum) % MaxSprNum;
         m_SR.sprite = m_Sprite[SprNum];
 

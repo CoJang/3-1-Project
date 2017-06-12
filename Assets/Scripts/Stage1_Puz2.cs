@@ -37,7 +37,7 @@ public class Stage1_Puz2 : PuzzleInterface
             m_CameraMove.Move(m_Gate.transform.position, 0.5f, 1.0f, null);
             m_Gate.Open(0.3f);
         }
-
+        Audio.Play();
         //PlayerPrefs.DeleteKey("BLOCK 6");
     }
 }

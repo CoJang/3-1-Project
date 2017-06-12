@@ -31,6 +31,7 @@ public class Stage1_Coin : PuzzleInterface
         // 50 * 7 = coin
         if(Blocks[0].SprNum == 0 && Slot.GetSpriteNum() == 7 && Blocks[1].SprNum == 2)
         {
+            Audio.Play();
             PlayerPrefs.SetInt("COIN", PlayerPrefs.GetInt("COIN", 0) + 350);
             PlayerPrefs.DeleteKey("BLOCK 7");
             return true;
@@ -39,6 +40,7 @@ public class Stage1_Coin : PuzzleInterface
         // 50 / 7 = coin
         if (Blocks[0].SprNum == 1 && Slot.GetSpriteNum() == 7 && Blocks[1].SprNum == 2)
         {
+            Audio.Play();
             PlayerPrefs.SetInt("COIN", PlayerPrefs.GetInt("COIN", 0) + 7);
             PlayerPrefs.DeleteKey("BLOCK 7");
             return true;
@@ -47,6 +49,7 @@ public class Stage1_Coin : PuzzleInterface
         // 50 + 7 = coin
         if (Blocks[0].SprNum == 2 && Slot.GetSpriteNum() == 7 && Blocks[1].SprNum == 2)
         {
+            Audio.Play();
             PlayerPrefs.SetInt("COIN", PlayerPrefs.GetInt("COIN", 0) + 57);
             PlayerPrefs.DeleteKey("BLOCK 7");
             return true;
@@ -55,6 +58,7 @@ public class Stage1_Coin : PuzzleInterface
         // 50 - 7 = coin
         if (Blocks[0].SprNum == 3 && Slot.GetSpriteNum() == 7 && Blocks[1].SprNum == 2)
         {
+            Audio.Play();
             PlayerPrefs.SetInt("COIN", PlayerPrefs.GetInt("COIN", 0) + 43);
             PlayerPrefs.DeleteKey("BLOCK 7");
             return true;

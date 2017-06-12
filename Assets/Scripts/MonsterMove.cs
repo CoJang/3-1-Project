@@ -99,6 +99,7 @@ public class MonsterMove : MonoBehaviour
 
     public void Die()
     {
+        gameObject.GetComponent<AudioSource>().Play();
         StopCoroutine(Jump());
         movementFlag = 0;
         transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y * 0.6f, 1); // Y axis flip

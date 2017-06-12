@@ -158,13 +158,13 @@ public class KeyInpuManager : MonoBehaviour
                 //    Listerner.Slot5Touched();
                 //}
 
-                //if (jumpcheck)
-                //{
-                //    jumpcheck = false;
-                //    Listerner.Jump();
-                //}
+            //if (jumpcheck)
+            //{
+            //    jumpcheck = false;
+            //    Listerner.Jump();
+            //}
 
-                if (RectTransformUtility.RectangleContainsScreenPoint(Inventory_BT, Input.mousePosition, Camera.main))
+            if (RectTransformUtility.RectangleContainsScreenPoint(Inventory_BT, Input.mousePosition, Camera.main))
                 {
                     Listerner.ShowInven();
                 }

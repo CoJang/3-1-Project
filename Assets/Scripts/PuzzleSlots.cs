@@ -32,6 +32,8 @@ public class PuzzleSlots : MonoBehaviour
 
             gameObject.GetComponent<SpriteRenderer>().sprite = ItemList[other.gameObject.GetComponent<ItemScript>().GetBlockSprNum()];
             SprNum = other.gameObject.GetComponent<ItemScript>().GetBlockSprNum();
+
+            gameObject.GetComponent<AudioSource>().Play();
         }
     }
 

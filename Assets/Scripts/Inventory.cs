@@ -187,7 +187,7 @@ public class Inventory : MonoBehaviour
         {
             EmptyItem.GetComponent<SpriteRenderer>().sprite = UI_Blocks[PlayerPrefs.GetInt("SLOT " + (++slotNum))];
             EmptyItem.GetComponent<ItemScript>().BlockKey = GetBlockKey(PlayerPrefs.GetInt("SLOT " + (slotNum)));
-            //player.SetEquip(true);
+            gameObject.GetComponent<AudioSource>().Play();
         }
         else
         {

@@ -3,6 +3,9 @@ using System.Collections;
 using Spine.Unity;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+[RequireComponent(typeof(AudioSource))]
 
 public class PlayerMove: MonoBehaviour, IinputListener {
 
@@ -80,7 +83,6 @@ public class PlayerMove: MonoBehaviour, IinputListener {
     {
         if (isDie)
             return;
-
         if (moveDir == Vector3.zero)
             m_WalkSound.Pause();
     }
@@ -157,6 +159,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
             Instantiate(Get_effect, new Vector3(transform.position.x, transform.position.y + 1.2f, transform.position.z), Quaternion.identity);
             myInven.SaveItem(item.GetBlockKey(), 1);
+            other.GetComponent<AudioSource>().Play();
             Destroy(other.gameObject, 0.2f);
         }
 
@@ -176,8 +179,12 @@ public class PlayerMove: MonoBehaviour, IinputListener {
             StageClear st = keyman.gameObject.GetComponentInChildren<StageClear>();
             st.FinishStage();
 
+            other.GetComponent<AudioSource>().Play();
+
             keyman.enabled = false;
             myInven.DeleteBlocks();
+
+            StartCoroutine(StageEnd());
         }
 
         if(other.gameObject.tag == "Coin")
@@ -232,6 +239,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         if (jump)
         {
             Instantiate(Jump_effect, new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z), Quaternion.identity);
+            //Jump_effect.GetComponent<AudioSource>().Play();
             jump = false;
             m_Rigidbody.AddForce(new Vector2(0f, JumpForce * TimeMutiply)); // 플레이어 포지션 변경 [ 점프 ]
             TimeMutiply = 0.63f;
@@ -353,6 +361,7 @@ public class PlayerMove: MonoBehaviour, IinputListener {
 
     private void Die()
     {
+        
         BoxCollider2D[] Colls = gameObject.GetComponents<BoxCollider2D>();
         Colls[0].enabled = false;
 
@@ -402,5 +411,11 @@ public class PlayerMove: MonoBehaviour, IinputListener {
         isItemHold = TrueOrFalse;
     }
 
+    IEnumerator StageEnd()
+    {
+        yield return new WaitForSeconds(1.0f);
 
+        Handheld.PlayFullScreenMovie("ED.mp4", Color.black, FullScreenMovieControlMode.Full);
+        SceneManager.LoadScene("MenuScene");
+    }
 }

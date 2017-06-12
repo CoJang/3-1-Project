@@ -8,7 +8,7 @@ public class SendSomething : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D Col)
     {
-        if(Col.gameObject.tag == "Player")
+        if(Col.gameObject.tag == "Player" || Col.gameObject.tag == "Item")
         {
             script.CheckIsCorrect();
         }

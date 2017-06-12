@@ -15,5 +15,6 @@ public class Breakable : BlockColCheck
     protected override void OnBlockCollition()
     {
         Ani.SetTrigger("Touched");
+        gameObject.GetComponent<AudioSource>().Play();
     }
 }

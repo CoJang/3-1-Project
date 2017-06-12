@@ -11,7 +11,7 @@ public class MovieScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        Handheld.PlayFullScreenMovie("all_sound.mp4", Color.black, FullScreenMovieControlMode.Hidden);
+        Handheld.PlayFullScreenMovie("OP.mp4", Color.black, FullScreenMovieControlMode.Full);
     }
 
     // Update is called once per frame

@@ -41,6 +41,7 @@ public class Stage1_Puz3 : PuzzleInterface
 
             PlayerPrefs.DeleteKey("BLOCK ROOT");
             PlayerPrefs.DeleteKey("BLOCK 2");
+            Audio.Play();
 
             return true;
         }

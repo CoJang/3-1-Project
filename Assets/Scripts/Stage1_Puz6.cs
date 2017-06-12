@@ -24,6 +24,7 @@ public class Stage1_Puz6 : PuzzleInterface
     {
         if (Slot.Satisfied && FxBlock.GetComponent<FxBlock>().Satisfied)
         {
+            Audio.Play();
             FxBlock.GetComponent<Animator>().SetTrigger("Satisfied");
             PlayerPrefs.DeleteKey("BLOCK MINUS");
             return true;

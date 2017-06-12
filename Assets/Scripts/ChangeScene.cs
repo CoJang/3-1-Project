@@ -40,7 +40,7 @@ public class ChangeScene : MonoBehaviour
 
     public void ChangeIntoGameScene()
     {
-        SceneManager.LoadScene("MovieScene");
+        SceneManager.LoadScene("MenuScene");
     }
     
 }
